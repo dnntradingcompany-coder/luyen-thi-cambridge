@@ -613,19 +613,50 @@ let extra = store.get("cam-extra", {});
 let history = store.get("cam-history", []);
 let sample = null;
 
+/* ===== CẤU HÌNH AI CHO BẢN GITHUB =====
+   Dán URL Cloudflare Worker của bạn vào giữa hai dấu ngoặc kép, ví dụ:
+   const API_URL = "https://luyen-thi-ai.ten-ban.workers.dev";
+   Để trống thì ứng dụng chạy không có AI. */
+const API_URL = "https://luyen-thi-ai.dnntradingcompany.workers.dev";
+
+function makeProxySample(url){
+  const call = async (input, opts = {}) => {
+    const prompt = typeof input === "string" ? input : input.map(t => t.content).join("\n\n");
+    let res;
+    try{
+      res = await fetch(url, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ prompt }), signal: opts.signal });
+    }catch(e){ throw { code: e && e.name === "AbortError" ? "cancelled" : "network" }; }
+    if(res.status === 429) throw { code:"rate_limited" };
+    if(!res.ok) throw { code:"server" };
+    const d = await res.json();
+    return { text: String(d.text || ""), truncated: !!d.truncated };
+  };
+  const fn = (input, opts) => call(input, opts);
+  fn.json = async (input, opts) => {
+    const { text } = await call(input, opts);
+    const t = text.replace(/```json|```/g, "").trim();
+    const a = t.indexOf("{"), b = t.lastIndexOf("}");
+    try{ return JSON.parse(t.slice(a, b + 1)); }catch(e){ throw { code:"bad_shape" }; }
+  };
+  return fn;
+}
+
 function refreshAI(){
   $$("[data-ai]").forEach(el => el.hidden = !sample);
   $$("[data-noai]").forEach(el => el.hidden = !!sample);
 }
 (async () => {
   try{ if(window.claude && typeof claude.use === "function"){ sample = await claude.use("sample"); } }catch(e){ sample = null; }
+  if(!sample && API_URL) sample = makeProxySample(API_URL);
   refreshAI();
 })();
 
 function errCopy(e){
   const c = e && e.code;
   if(c==="not_granted") return "Bạn chưa cho phép trang này dùng Claude. Tải lại trang và chọn Cho phép để dùng tính năng AI.";
-  if(c==="rate_limited") return "Đang có quá nhiều yêu cầu. Đợi một lát rồi bấm lại.";
+  if(c==="rate_limited") return "Bạn đã dùng hết lượt AI hôm nay, hoặc hệ thống đang quá tải. Hãy thử lại vào ngày mai.";
+  if(c==="network") return "Không kết nối được máy chủ AI. Kiểm tra mạng rồi bấm lại.";
+  if(c==="bad_shape") return "AI trả về kết quả chưa đúng định dạng. Bấm lại để thử lần nữa.";
   if(c==="cancelled") return "Đã dừng.";
   return "Không nhận được kết quả từ AI. Bấm lại để thử lần nữa.";
 }
@@ -746,7 +777,7 @@ function renderList(app){
     ${specs ? `<section class="gen" id="gen">
       <h3>Tạo thêm đề mới bằng AI</h3>
       <p>Claude soạn một đề mới theo đúng định dạng ${L.name}, có đáp án và giải thích tiếng Việt. Đề được lưu vào ngân hàng câu hỏi của bạn.</p>
-      <p class="hint" data-noai style="color:var(--bad)">Tính năng này chỉ hoạt động khi mở ứng dụng trong Claude (claude.ai hoặc ứng dụng Claude). Nếu bạn đang mở từ GitHub hoặc file trên máy, nút Tạo đề sẽ không dùng được.</p>
+      <p class="hint" data-noai style="color:var(--bad)">Tính năng AI chưa được bật trên trang này. Quản trị viên cần điền API_URL trong file index.html.</p>
       <div class="gen-row" data-ai hidden>
         <label class="field">Dạng bài<select id="gen-spec">${specs.map((s,i) => `<option value="${i}">${esc(s.label)}</option>`).join("")}</select></label>
         <label class="field">Chủ đề (không bắt buộc)<input id="gen-topic" placeholder="ví dụ: môi trường, công nghệ, du lịch" maxlength="80"></label>
@@ -1018,7 +1049,7 @@ function renderWriting(app, set){
       <div class="actions">
         <button class="btn" id="grade" data-ai hidden>Chấm bài bằng AI</button>
         <button class="btn ghost" id="clear">Xoá bài</button>
-        <p class="hint" data-noai>Chấm bài bằng AI chỉ hoạt động khi mở trang trong Claude. Bạn vẫn có thể tự đánh giá theo tiêu chí bên dưới.</p>
+        <p class="hint" data-noai>Chấm bài bằng AI chưa được bật trên trang này. Bạn vẫn có thể tự đánh giá theo tiêu chí bên dưới.</p>
       </div>
       <div class="fb" id="fb" aria-live="polite"></div>
       ${WRITING_CRITERIA}
@@ -1092,7 +1123,7 @@ function renderSpeaking(app, set){
           <div class="sq-fb" hidden></div></div>`).join("")}</div>
       <div class="actions" style="margin-top:1.25rem">
         <button class="btn" id="sfb" data-ai hidden>Nhận xét bằng AI</button>
-        <p class="hint" data-noai>Nhận xét bằng AI chỉ hoạt động khi mở trang trong Claude.</p>
+        <p class="hint" data-noai>Nhận xét bằng AI chưa được bật trên trang này.</p>
         <span class="hint" id="micnote" aria-live="polite"></span>
       </div>
       <div class="fb" id="fb" aria-live="polite"></div>
