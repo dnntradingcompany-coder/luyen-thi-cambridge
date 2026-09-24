@@ -566,8 +566,8 @@ const ICONS = {
   speaking:'<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>'
 };
 const SKILLS = {
-  reading:{ name:"Reading", vi:"Đọc hiểu", desc:"Thông báo ngắn, bài đọc dài, điền từ, viết lại câu." },
-  listening:{ name:"Listening", vi:"Nghe hiểu", desc:"Hội thoại và độc thoại, nghe tối đa hai lần như phòng thi." },
+  reading:{ name:"Reading", vi:"Đọc hiểu", desc:"Thông báo ngắn, bài đọc dài, điền từ, viết lại câu. Tạo thêm đề bằng AI." },
+  listening:{ name:"Listening", vi:"Nghe hiểu", desc:"Hội thoại và độc thoại, nghe tối đa hai lần như phòng thi. Tạo thêm đề bằng AI." },
   writing:{ name:"Writing", vi:"Viết", desc:"Email, bài báo, bài luận, review. Chấm theo 4 tiêu chí Cambridge." },
   speaking:{ name:"Speaking", vi:"Nói", desc:"Trả lời câu hỏi giám khảo bằng giọng nói, nhận xét theo tiêu chí." }
 };
@@ -743,10 +743,11 @@ function renderList(app){
         <span class="set-meta">${meta}${best!=null ? `, tốt nhất ${best}%` : ""}</span></button>
         ${s.generated ? `<button class="del" data-del="${esc(s.id)}" aria-label="Xoá đề ${esc(s.title)}">Xoá</button>` : ""}</li>`;
     }).join("")}</ul>
-    ${specs ? `<section class="gen" data-ai hidden>
-      <h3>Tạo thêm đề mới</h3>
+    ${specs ? `<section class="gen" id="gen">
+      <h3>Tạo thêm đề mới bằng AI</h3>
       <p>Claude soạn một đề mới theo đúng định dạng ${L.name}, có đáp án và giải thích tiếng Việt. Đề được lưu vào ngân hàng câu hỏi của bạn.</p>
-      <div class="gen-row">
+      <p class="hint" data-noai style="color:var(--bad)">Tính năng này chỉ hoạt động khi mở ứng dụng trong Claude (claude.ai hoặc ứng dụng Claude). Nếu bạn đang mở từ GitHub hoặc file trên máy, nút Tạo đề sẽ không dùng được.</p>
+      <div class="gen-row" data-ai hidden>
         <label class="field">Dạng bài<select id="gen-spec">${specs.map((s,i) => `<option value="${i}">${esc(s.label)}</option>`).join("")}</select></label>
         <label class="field">Chủ đề (không bắt buộc)<input id="gen-topic" placeholder="ví dụ: môi trường, công nghệ, du lịch" maxlength="80"></label>
         <button class="btn" id="gen-btn">Tạo đề</button>
