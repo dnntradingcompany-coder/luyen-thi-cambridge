@@ -568,8 +568,8 @@ const ICONS = {
 const SKILLS = {
   reading:{ name:"Reading", vi:"Đọc hiểu", desc:"Thông báo ngắn, bài đọc dài, điền từ, viết lại câu. Tạo thêm đề bằng AI." },
   listening:{ name:"Listening", vi:"Nghe hiểu", desc:"Hội thoại và độc thoại, nghe tối đa hai lần như phòng thi. Tạo thêm đề bằng AI." },
-  writing:{ name:"Writing", vi:"Viết", desc:"Email, bài báo, bài luận, review. Chấm theo 4 tiêu chí Cambridge." },
-  speaking:{ name:"Speaking", vi:"Nói", desc:"Trả lời câu hỏi giám khảo bằng giọng nói, nhận xét theo tiêu chí." }
+  writing:{ name:"Writing", vi:"Viết", desc:"Email, bài báo, bài luận, review. Chấm theo 4 tiêu chí Cambridge. Tạo thêm đề bằng AI." },
+  speaking:{ name:"Speaking", vi:"Nói", desc:"Trả lời câu hỏi giám khảo bằng giọng nói, nhận xét theo tiêu chí. Tạo thêm đề bằng AI." }
 };
 const GEN_SPECS = {
   A2:{ reading:[
@@ -577,19 +577,40 @@ const GEN_SPECS = {
         {key:"long", part:"Reading Part 3", label:"Part 3: Bài đọc dài", nOpts:3, nQ:5, words:"200-230"}],
        listening:[
         {key:"dialogue", part:"Listening Part 2", label:"Hội thoại, chọn đáp án", nOpts:3, nQ:5},
-        {key:"gapfill", part:"Listening Part 3", label:"Độc thoại, điền thông tin", nQ:5}] },
+        {key:"gapfill", part:"Listening Part 3", label:"Độc thoại, điền thông tin", nQ:5}],
+       writing:[
+        {key:"w", part:"Writing Part 6", label:"Part 6: Email ngắn (25+ từ)", min:25, max:60, desc:"a short email or note to an English friend with exactly three content points to cover"},
+        {key:"w", part:"Writing Part 7", label:"Part 7: Kể chuyện theo 3 bức tranh (35+ từ)", min:35, max:80, desc:"a picture story: describe three pictures in words as points 'Picture 1: …', 'Picture 2: …', 'Picture 3: …'"}],
+       speaking:[
+        {key:"s", part:"Speaking Part 1", label:"Part 1: Hỏi đáp về bản thân", nQ:5, desc:"examiner interview questions about the candidate's daily life, family, school, hobbies"},
+        {key:"s", part:"Speaking Part 2", label:"Part 2: Thảo luận theo chủ đề", nQ:4, desc:"a discussion topic with five pictured options listed in the instructions (e.g. 'Here are some different ...: a, b, c, d, e.'), then questions about likes, preferences and experiences"}] },
   B1:{ reading:[
         {key:"long", part:"Reading Part 3", label:"Part 3: Bài đọc dài", nOpts:4, nQ:5, words:"300-350"},
         {key:"cloze", part:"Reading Part 5", label:"Part 5: Điền từ trắc nghiệm", nOpts:4, nQ:6}],
        listening:[
         {key:"dialogue", part:"Listening Part 4", label:"Phỏng vấn, chọn đáp án", nOpts:3, nQ:5},
-        {key:"gapfill", part:"Listening Part 3", label:"Độc thoại, điền thông tin", nQ:6}] },
+        {key:"gapfill", part:"Listening Part 3", label:"Độc thoại, điền thông tin", nQ:6}],
+       writing:[
+        {key:"w", part:"Writing Part 1", label:"Part 1: Email trả lời có ghi chú (~100 từ)", min:90, max:120, desc:"reply to an email from an English-speaking friend; give the friend's email as 4-5 lines, each with a short handwritten note (e.g. 'Great!', 'Tell X', 'Explain', 'Suggest...'), last line is the sign-off with an empty note", email:true},
+        {key:"w", part:"Writing Part 2", label:"Part 2: Bài báo hoặc câu chuyện (~100 từ)", min:90, max:120, desc:"either an article for an English-language magazine (with the magazine notice and 2-3 guiding questions as points) or a story that must begin with a given sentence"}],
+       speaking:[
+        {key:"s", part:"Speaking Part 1", label:"Part 1: Phỏng vấn cá nhân", nQ:5, desc:"examiner interview questions about the candidate's life, studies, free time, past and future plans"},
+        {key:"s", part:"Speaking Part 2", label:"Part 2: Mô tả bức ảnh", nQ:2, desc:"describe a photograph: the instructions describe in detail what the photo shows (people, place, activity) since no image is shown; first question asks to describe the photo, second asks a related personal question"},
+        {key:"s", part:"Speaking Part 3", label:"Part 3: Thảo luận chọn phương án", nQ:2, desc:"a collaborative task: a situation and five ideas listed in the instructions; question 1 asks to talk about each idea, question 2 asks which is best"},
+        {key:"s", part:"Speaking Part 4", label:"Part 4: Thảo luận mở rộng", nQ:4, desc:"general opinion questions on one theme"}] },
   B2:{ reading:[
         {key:"cloze", part:"Reading Part 1", label:"Part 1: Điền từ trắc nghiệm", nOpts:4, nQ:8},
         {key:"long", part:"Reading Part 5", label:"Part 5: Bài đọc dài", nOpts:4, nQ:6, words:"450-550"}],
        listening:[
         {key:"dialogue", part:"Listening Part 4", label:"Phỏng vấn, chọn đáp án", nOpts:3, nQ:6},
-        {key:"gapfill", part:"Listening Part 2", label:"Độc thoại, hoàn thành câu", nQ:8}] }
+        {key:"gapfill", part:"Listening Part 2", label:"Độc thoại, hoàn thành câu", nQ:8}],
+       writing:[
+        {key:"w", part:"Writing Part 1", label:"Part 1: Essay (140–190 từ)", min:140, max:190, desc:"an essay for an English teacher: context sentence, the essay question as the first point, then a point 'Notes – write about: 1. ... 2. ... 3. ______ (your own idea)'"},
+        {key:"w", part:"Writing Part 2", label:"Part 2: Article, review, email hoặc report (140–190 từ)", min:140, max:190, desc:"one of: article, review, formal or informal email/letter, or report; give the context (website, magazine, college) and 2-3 points saying what to include"}],
+       speaking:[
+        {key:"s", part:"Speaking Part 1", label:"Part 1: Interview", nQ:4, desc:"examiner interview questions about the candidate, some requiring opinions or hypothetical answers"},
+        {key:"s", part:"Speaking Part 2", label:"Part 2: So sánh hai bức ảnh", nQ:2, desc:"compare two photographs: instructions describe Photo A and Photo B in words since no images are shown; question 1 asks to compare them and answer a speculative question, question 2 is the follow-up question for the other candidate"},
+        {key:"s", part:"Speaking Parts 3 & 4", label:"Part 3 & 4: Thảo luận và đưa ý kiến", nQ:4, desc:"a collaborative task with a central question and five prompts listed in the instructions; questions 1-2 are the Part 3 tasks (discuss the prompts, then decide), questions 3-4 are Part 4 opinion questions on the same theme"}] }
 };
 
 /* ================= TIỆN ÍCH ================= */
@@ -801,6 +822,24 @@ function genPrompt(spec, topic){
   const L = LEVELS[state.level], skill = state.skill;
   const opt = spec.nOpts || 0;
   const topicLine = topic ? `Topic: ${topic}.` : "Choose a fresh everyday topic suitable for teenagers and young adults.";
+  if(skill === "writing"){
+    const emailShape = spec.email ? `,"email":[["line of the friend's email","short note"],["...","..."],["sign-off line",""]]` : "";
+    return `You write an ORIGINAL writing task in the style of the Cambridge English ${L.exam} exam, ${spec.part}. Do not copy any real past paper.
+CEFR level: ${L.cefr}. ${topicLine}
+Task type: ${spec.desc}. Required length: ${spec.min}-${spec.max} words.
+Write the task text in English exactly as it would appear on the exam paper. "title" is a short Vietnamese label such as "Email: kỳ nghỉ hè" or "Essay: điện thoại trong lớp học".
+Reply with ONLY one JSON object, no markdown, in this shape:
+{"title":"...","intro":"context sentence(s)"${emailShape},"points":["content point or line of the notice", "..."],"outro":"final instruction including the word count"}${spec.email ? `
+For this task put the friend's email in "email" and use "points": [].` : ""}`;
+  }
+  if(skill === "speaking"){
+    return `You write an ORIGINAL speaking task in the style of the Cambridge English ${L.exam} exam, ${spec.part}. Do not copy any real past paper.
+CEFR level: ${L.cefr}. ${topicLine}
+Task type: ${spec.desc}. Write exactly ${spec.nQ} examiner questions, in English, as the examiner would say them.
+"title" is a short Vietnamese label. "instructions" is in English and sets up the task (describe any photos or options in words). "tip" is one Vietnamese sentence of exam strategy for this part.
+Reply with ONLY one JSON object, no markdown, in this shape:
+{"title":"...","instructions":"...","tip":"...","questions":["...","..."]}`;
+  }
   let format = "", shape = "";
   const mcqQ = `{"q":"question stem","options":[${Array.from({length:opt},(_,i)=>`"option ${LETTERS[i]}"`).join(",")}],"answer":0,"explain":"Vietnamese explanation quoting the key words from the text"}`;
   const gapQ = `{"type":"gap","q":"sentence with the missing part shown as ______","accept":["answer","acceptable variant"],"explain":"Vietnamese explanation quoting the recording"}`;
@@ -832,7 +871,12 @@ Reply with ONLY one JSON object, no markdown, in this shape:
 ${shape}`;
 }
 function validSet(d, spec){
-  if(!d || typeof d !== "object" || !Array.isArray(d.questions) || !d.questions.length) return false;
+  if(!d || typeof d !== "object") return false;
+  if(state.skill === "writing") return typeof d.intro === "string" && typeof d.outro === "string"
+    && (Array.isArray(d.points) || Array.isArray(d.email));
+  if(state.skill === "speaking") return Array.isArray(d.questions) && d.questions.length > 0
+    && d.questions.every(q => typeof q === "string");
+  if(!Array.isArray(d.questions) || !d.questions.length) return false;
   if(state.skill === "listening" && (!Array.isArray(d.script) || !d.script.length)) return false;
   return d.questions.every(q => {
     if(q.type === "gap") return typeof q.q === "string" && Array.isArray(q.accept) && q.accept.length;
@@ -847,7 +891,14 @@ async function generateSet(spec, topic){
   try{
     const d = await sample.json(genPrompt(spec, topic), { modelTier:"default", cache:false });
     if(!validSet(d, spec)) throw { code:"bad_shape" };
-    const set = {
+    const base = { id:"ai-"+Date.now(), generated:true, part:spec.part, title:String(d.title||"Đề mới") };
+    const set = state.skill === "writing" ? {
+      ...base, min:spec.min, max:spec.max, intro:String(d.intro), outro:String(d.outro),
+      points: Array.isArray(d.points) && d.points.length ? d.points.map(String) : undefined,
+      email: Array.isArray(d.email) && d.email.length ? d.email.map(r => Array.isArray(r) ? [String(r[0]||""), String(r[1]||"")] : [String(r), ""]) : undefined
+    } : state.skill === "speaking" ? {
+      ...base, instructions:String(d.instructions||""), tip:String(d.tip||""), questions:d.questions.map(String)
+    } : {
       id:"ai-"+Date.now(), generated:true, part:spec.part,
       title:String(d.title||"Đề mới"), instructions:String(d.instructions||""),
       passage: typeof d.passage === "string" ? d.passage : "",
