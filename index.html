@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luyện thi Cambridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F5F8; --surface:#FFFFFF; --ink:#14213A; --muted:#58657E; --line:#D3DAE4;
+  --accent:#AE2468; --accent-soft:#F8E4EE; --ok:#1B7447; --ok-soft:#DFF1E7; --bad:#C0282D; --bad-soft:#FBE3E3;
+  --lead:#2B3038; --lead-ink:#FFFFFF;
+  --ui:"Lexend", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --read:"Literata", Georgia, "Times New Roman", serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1420; --surface:#161F30; --ink:#E6EBF3; --muted:#9BA7BD; --line:#2A3650;
+    --accent:#E7669F; --accent-soft:#3B1C2C; --ok:#58C68A; --ok-soft:#14301F; --bad:#F07070; --bad-soft:#3A1B1D;
+    --lead:#E6EBF3; --lead-ink:#0E1420;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1420; --surface:#161F30; --ink:#E6EBF3; --muted:#9BA7BD; --line:#2A3650;
+  --accent:#E7669F; --accent-soft:#3B1C2C; --ok:#58C68A; --ok-soft:#14301F; --bad:#F07070; --bad-soft:#3A1B1D;
+  --lead:#E6EBF3; --lead-ink:#0E1420;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:6px}
+[hidden]{display:none!important}
+img{max-width:100%}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.top-inner{max-width:1120px;margin:0 auto;padding:.7rem 1.25rem;display:flex;gap:.75rem 1rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.65rem;font-weight:600;background:none;border:0;padding:0;font-size:1.05rem}
+.mark{display:flex;gap:3px}
+.mark i{display:block;width:14px;height:8px;border:1.5px solid var(--accent);border-radius:99px}
+.mark i.f{background:var(--lead);border-color:var(--lead)}
+.levels{display:flex;border:1px solid var(--line);border-radius:10px;padding:3px;background:var(--surface);max-width:100%;overflow-x:auto}
+.levels button{border:0;background:none;font-size:.875rem;padding:.4rem .8rem;border-radius:7px;color:var(--muted);white-space:nowrap}
+.levels button[aria-pressed="true"]{background:var(--ink);color:var(--paper);font-weight:500}
+
+main{max-width:1120px;margin:0 auto;padding:1.25rem 1.25rem 4rem}
+
+/* Home */
+.hero{display:grid;grid-template-columns:1fr auto;gap:2.5rem;align-items:center;padding:1.75rem 0 2.25rem}
+.hero h1{font-size:clamp(2rem,5.2vw,3.4rem);line-height:1.08;margin:0 0 .75rem;letter-spacing:-.025em;font-weight:700}
+.hero p{margin:0;color:var(--muted);max-width:50ch;font-size:1.05rem}
+.sheet{display:grid;gap:7px;padding:16px 18px 14px;border:1.5px solid var(--accent);border-radius:4px;background:var(--surface)}
+.sheet .row{display:flex;gap:7px;align-items:center}
+.sheet .n{width:1.3rem;font-size:.7rem;color:var(--accent);font-weight:500}
+.sheet .l{width:28px;height:13px;border:1.5px solid var(--accent);border-radius:99px;font-size:8px;line-height:1;display:grid;place-items:center;color:var(--accent)}
+.sheet .l.f{animation:fill .22s ease-out both}
+@keyframes fill{to{background:var(--lead);border-color:var(--lead);color:transparent}}
+@media (prefers-reduced-motion: reduce){.sheet .l.f{animation-duration:0s;animation-delay:0s!important}}
+@media (max-width:680px){.hero{grid-template-columns:1fr;padding-top:.75rem}.sheet{display:none}}
+
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+@media (max-width:620px){.tiles{grid-template-columns:1fr}}
+.tile{text-align:left;display:grid;grid-template-columns:auto 1fr;gap:.2rem 1rem;padding:1.35rem 1.4rem;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.tile:hover{border-color:var(--ink)}
+.tile svg{grid-row:span 4;width:34px;height:34px;stroke:var(--accent);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-top:.2rem}
+.tile-en{font-size:1.45rem;font-weight:600;line-height:1.2}
+.tile-vi{color:var(--muted);font-size:.95rem}
+.tile-desc{font-size:.9rem;margin-top:.35rem}
+.tile-meta{font-size:.82rem;color:var(--muted);margin-top:.5rem}
+
+.recent{margin-top:2.5rem}
+.recent h2,.section-h{font-size:1.1rem;margin:0 0 .75rem;font-weight:600}
+.recent ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.recent li{display:flex;justify-content:space-between;gap:1rem;padding:.65rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.recent .pct{font-weight:600;white-space:nowrap}
+.empty{color:var(--muted);font-size:.92rem}
+
+/* List */
+.back{display:inline-flex;align-items:center;gap:.35rem;background:none;border:0;padding:.3rem 0;color:var(--muted);font-size:.9rem;margin-bottom:.75rem}
+.back:hover{color:var(--ink)}
+.page-h{font-size:clamp(1.6rem,3.6vw,2.3rem);margin:0 0 .35rem;letter-spacing:-.02em;line-height:1.15}
+.page-sub{margin:0 0 1.75rem;color:var(--muted)}
+.sets{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.sets li{display:flex;gap:.5rem;align-items:stretch}
+.set{flex:1;text-align:left;display:grid;gap:.15rem;padding:1rem 1.15rem;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.set:hover{border-color:var(--ink)}
+.set-part{font-size:.8rem;color:var(--accent);font-weight:500}
+.set-title{font-weight:600;font-size:1.05rem}
+.set-meta{font-size:.85rem;color:var(--muted)}
+.tag{display:inline-block;font-size:.72rem;padding:.05rem .45rem;border-radius:99px;background:var(--accent-soft);color:var(--accent);margin-left:.35rem;vertical-align:1px}
+.del{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:0 .9rem;color:var(--muted);font-size:.85rem}
+.del:hover{color:var(--bad);border-color:var(--bad)}
+
+.gen{margin-top:2rem;padding:1.35rem;border:1.5px dashed var(--line);border-radius:14px}
+.gen h3{margin:0 0 .3rem;font-size:1.05rem}
+.gen p{margin:0 0 1rem;color:var(--muted);font-size:.92rem}
+.gen-row{display:flex;gap:.75rem;flex-wrap:wrap;align-items:flex-end}
+.field{display:grid;gap:.3rem;font-size:.85rem;color:var(--muted);flex:1 1 200px}
+.field input,.field select{padding:.6rem .7rem;border:1px solid var(--line);border-radius:9px;background:var(--surface);font-size:.95rem;min-width:0;width:100%}
+.status{margin-top:.75rem;font-size:.9rem}
+
+/* Buttons */
+.btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);padding:.65rem 1.2rem;border-radius:10px;font-weight:500;font-size:.95rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.small{padding:.4rem .8rem;font-size:.85rem;border-radius:8px}
+
+/* Exercise */
+.ex-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1.25rem}
+.ex-part{font-size:.85rem;color:var(--accent);font-weight:500;margin:0 0 .2rem}
+.ex-head h2{margin:0 0 .4rem;font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:-.015em;line-height:1.2}
+.ex-instr{margin:0;color:var(--muted);max-width:70ch}
+.timer{font-variant-numeric:tabular-nums;font-size:.95rem;padding:.35rem .7rem;border:1px solid var(--line);border-radius:8px;background:var(--surface);white-space:nowrap}
+
+.ex-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:2rem;align-items:start}
+.ex-grid.single{grid-template-columns:minmax(0,760px)}
+@media (max-width:880px){.ex-grid{grid-template-columns:minmax(0,1fr)}}
+.passage{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.5rem 1.6rem;font-family:var(--read);font-size:1.04rem;line-height:1.75}
+@media (min-width:881px){.passage{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);max-height:calc(100vh - 110px);overflow:auto}}
+.passage p{margin:0 0 1em;max-width:68ch}
+.passage p:last-child{margin-bottom:0}
+.gapmark{display:inline-block;min-width:3.2em;border-bottom:1.5px solid var(--accent);text-align:center;font-family:var(--ui);font-size:.8em;color:var(--accent);font-weight:600;line-height:1.3}
+
+.qs{display:grid;gap:1rem}
+.q{display:grid;grid-template-columns:2rem 1fr;gap:.25rem .5rem;padding:1rem 1.1rem;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.qn{font-weight:700;color:var(--accent);font-size:1.05rem;line-height:1.6}
+.qtext{margin:0 0 .6rem;font-weight:500}
+.notice{white-space:pre-line;font-family:var(--read);border:1.5px solid var(--ink);border-radius:6px;padding:.8rem 1rem;margin:0 0 .75rem;font-size:.97rem;line-height:1.6}
+.opts{display:grid;gap:.35rem}
+.opt{display:flex;gap:.7rem;align-items:flex-start;text-align:left;background:none;border:1px solid transparent;border-radius:9px;padding:.4rem .5rem;margin:0 -.5rem}
+.opt:hover:not(:disabled){background:var(--paper)}
+.opt:disabled{cursor:default}
+.lz{flex:none;display:grid;place-items:center;width:2.3rem;height:1.25rem;border:1.5px solid var(--accent);border-radius:99px;font-size:.72rem;font-weight:600;color:var(--accent);margin-top:.18rem;transition:background .12s,border-color .12s,color .12s}
+.opt[aria-checked="true"] .lz{background:var(--lead);border-color:var(--lead);color:var(--lead-ink)}
+.opt.correct .lz{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong .lz{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt.correct{background:var(--ok-soft)}
+.opt.wrong{background:var(--bad-soft)}
+.gapq{margin:0;line-height:2.1}
+.gapin{border:0;border-bottom:1.5px solid var(--accent);background:transparent;padding:.1rem .3rem;width:11em;max-width:100%;font-weight:500}
+.gapin:focus{outline:none;background:var(--accent-soft)}
+.gapin.correct{border-color:var(--ok);background:var(--ok-soft)}
+.gapin.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.explain{grid-column:2;margin-top:.6rem;padding:.65rem .85rem;border-radius:9px;background:var(--paper);font-size:.9rem}
+.explain b{font-weight:600}
+
+.submitbar{position:sticky;bottom:0;margin-top:1.5rem;padding:.85rem 0 calc(.85rem + env(safe-area-inset-bottom,0px));background:var(--paper);border-top:1px solid var(--line);display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.submitbar .count{color:var(--muted);font-size:.9rem}
+
+.result{margin-top:1.5rem;padding:1.5rem;border-radius:14px;background:var(--surface);border:1.5px solid var(--ink)}
+.result .big{font-size:2.6rem;font-weight:700;line-height:1;letter-spacing:-.02em}
+.result .big small{font-size:1rem;font-weight:500;color:var(--muted);margin-left:.5rem;letter-spacing:0}
+.result p{margin:.6rem 0 1rem}
+.result .row{display:flex;gap:.6rem;flex-wrap:wrap}
+
+/* Listening */
+.player{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;padding:1rem 1.1rem;border:1.5px solid var(--ink);border-radius:12px;background:var(--surface);margin-bottom:1.25rem}
+.player .plays{font-size:.88rem;color:var(--muted)}
+.player label{font-size:.88rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.player select{padding:.35rem .5rem;border:1px solid var(--line);border-radius:7px;background:var(--surface)}
+.player-note{flex-basis:100%;margin:0;font-size:.85rem;color:var(--muted)}
+.wave{display:flex;gap:3px;align-items:flex-end;height:18px}
+.wave i{display:block;width:3px;background:var(--accent);border-radius:2px;animation:wv 1s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:.15s}.wave i:nth-child(3){animation-delay:.3s}.wave i:nth-child(4){animation-delay:.45s}
+@keyframes wv{0%,100%{height:5px}50%{height:18px}}
+@media (prefers-reduced-motion: reduce){.wave i{animation:none;height:10px}}
+.transcript{margin-top:1.25rem}
+.transcript summary{cursor:pointer;font-weight:500}
+.transcript .passage{position:static;max-height:none;margin-top:.75rem}
+.spk{font-family:var(--ui);font-weight:600;font-size:.8em;color:var(--accent);margin-right:.4rem}
+
+/* Writing & speaking */
+.task{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.35rem 1.5rem;margin-bottom:1.25rem}
+.task p{margin:0 0 .75rem;max-width:72ch}
+.task ul{margin:.25rem 0 .75rem;padding-left:1.2rem}
+.email{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem 1rem;border:1.5px solid var(--ink);border-radius:6px;padding:1rem 1.1rem;margin:.5rem 0 1rem;font-family:var(--read)}
+.email .line{grid-column:1}
+.email .note{grid-column:2;font-family:var(--ui);font-size:.85rem;color:var(--accent);font-style:italic;align-self:center;border-left:2px solid var(--accent);padding-left:.6rem}
+@media (max-width:560px){.email{grid-template-columns:1fr}.email .note{grid-column:1;margin-bottom:.4rem}}
+.target{font-size:.88rem;color:var(--muted)}
+textarea.essay{width:100%;min-height:320px;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-family:var(--read);font-size:1.02rem;line-height:1.7;resize:vertical}
+textarea.essay:focus,.sq textarea:focus{outline:none;border-color:var(--ink)}
+.wc{display:flex;justify-content:space-between;gap:1rem;font-size:.88rem;color:var(--muted);margin:.4rem 0 1rem}
+.wc .ok{color:var(--ok);font-weight:500}
+.actions{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.hint{font-size:.88rem;color:var(--muted);margin:0}
+.thinking{color:var(--muted);display:flex;gap:.6rem;align-items:center}
+.err{color:var(--bad)}
+
+.fb{margin-top:1.5rem;display:grid;gap:1.1rem}
+.fb-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.25rem 1.35rem}
+.fb-card h3{margin:0 0 .75rem;font-size:1rem}
+.scores{display:grid;gap:.6rem}
+.score{display:grid;grid-template-columns:minmax(0,190px) 1fr auto;gap:.75rem;align-items:center;font-size:.9rem}
+@media (max-width:520px){.score{grid-template-columns:1fr auto}.score .bar{grid-column:1/-1;grid-row:2}}
+.bar{display:flex;gap:4px}
+.bar i{flex:1;height:10px;border-radius:99px;border:1.5px solid var(--accent)}
+.bar i.on{background:var(--lead);border-color:var(--lead)}
+.total{font-size:1.9rem;font-weight:700;margin:.2rem 0 .25rem}
+.fb-card ul{margin:0;padding-left:1.1rem}
+.fb-card li{margin-bottom:.35rem}
+.corr{display:grid;gap:.6rem}
+.corr div{padding:.6rem .8rem;border-radius:9px;background:var(--paper);font-size:.92rem}
+.corr del{color:var(--bad);text-decoration-thickness:1.5px}
+.corr ins{color:var(--ok);text-decoration:none;font-weight:500}
+.model{font-family:var(--read);white-space:pre-line;line-height:1.7}
+
+.sqs{display:grid;gap:1rem}
+.sq{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem}
+.sq-q{margin:0 0 .7rem;font-weight:500;font-size:1.02rem}
+.sq-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem}
+.sq textarea{width:100%;min-height:90px;padding:.75rem .85rem;border:1px solid var(--line);border-radius:10px;background:var(--paper);font-size:.95rem;line-height:1.6;resize:vertical}
+.rec[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:#fff}
+.sq-fb{margin-top:.75rem;padding:.7rem .85rem;border-radius:9px;background:var(--paper);font-size:.9rem}
+.sq-fb p{margin:0 0 .4rem}
+.sq-fb p:last-child{margin:0}
+
+details.criteria{margin-top:1.5rem;border-top:1px solid var(--line);padding-top:1rem}
+details.criteria summary{cursor:pointer;font-weight:500}
+details.criteria dl{margin:.75rem 0 0;display:grid;gap:.6rem}
+details.criteria dt{font-weight:600;font-size:.92rem}
+details.criteria dd{margin:0;color:var(--muted);font-size:.9rem}
+
+footer{max-width:1120px;margin:0 auto;padding:0 1.25rem 3rem;color:var(--muted);font-size:.85rem}
+footer p{max-width:75ch;margin:0 0 .6rem}
+.linkbtn{background:none;border:0;padding:0;color:var(--muted);text-decoration:underline;font-size:.85rem}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <button class="brand" id="brand" aria-label="Về trang chủ">
+      <span class="mark" aria-hidden="true"><i></i><i class="f"></i><i></i><i></i></span>
+      Luyện thi Cambridge
+    </button>
+    <div class="levels" id="levels" role="group" aria-label="Chọn cấp độ"></div>
+  </div>
+</header>
+<main id="app"></main>
+<footer>
+  <p>Các đề có sẵn được biên soạn mới theo đúng cấu trúc từng phần thi của Cambridge English (A2 Key, B1 Preliminary, B2 First), không sao chép đề thi thật. Đề tạo thêm bằng AI và tiến độ luyện tập được lưu trên trình duyệt này.</p>
+  <p>Phần nghe dùng giọng đọc của trình duyệt; nhận dạng giọng nói hoạt động tốt nhất trên Chrome hoặc Edge.</p>
+  <button class="linkbtn" id="reset">Xoá toàn bộ tiến độ</button>
+</footer>
+
+<script>
+/* ================= NGÂN HÀNG CÂU HỎI ================= */
+const BANK = {
+A2: {
+ reading: [
+  { id:"a2-r1", part:"Reading Part 1", title:"Thông báo và tin nhắn ngắn",
+    instructions:"For each question, choose the correct answer.",
+    questions:[
+     { text:"SWIMMING POOL\nChildren under 8 must swim with an adult.\nPool closes at 7 pm on Sundays.", q:"What does the notice say?",
+       options:["Young children cannot use the pool.","Adults must stay with small children in the pool.","The pool opens late on Sundays."], answer:1,
+       explain:"'Children under 8 must swim with an adult' = trẻ dưới 8 tuổi phải bơi cùng người lớn. A sai vì trẻ vẫn được bơi; C sai vì thông báo nói giờ đóng cửa, không phải giờ mở cửa." },
+     { text:"Hi Tom,\nThe football match is cancelled because of the rain. Can you tell the others? We'll play next Saturday instead.\nCoach Ben", q:"Coach Ben wants Tom to",
+       options:["tell the team about the change.","bring his football on Saturday.","check the weather tomorrow."], answer:0,
+       explain:"'Can you tell the others?' = nhờ Tom báo cho các bạn khác trong đội biết trận đấu bị huỷ." },
+     { text:"FOR SALE\nBlue bike, only one year old. Great for teenagers.\n£60 or best offer. Call Anna after 6 pm.", q:"What is true about the bike?",
+       options:["Anna will only sell it for £60.","It is suitable for young people.","You should phone Anna in the morning."], answer:1,
+       explain:"'Great for teenagers' = phù hợp với thanh thiếu niên. A sai vì có 'or best offer' (có thể trả giá); C sai vì phải gọi sau 6 giờ tối." },
+     { text:"CITY LIBRARY\nBooks must be returned within 14 days.\nLate returns: 20p per day.", q:"What does the notice say?",
+       options:["You can keep books for two weeks without paying.","You must pay 20p to borrow a book.","The library is closed for 14 days."], answer:0,
+       explain:"Sách được mượn trong 14 ngày (= 2 tuần); chỉ trả phí 20p/ngày nếu trả muộn." },
+     { text:"Mum,\nI've gone to Lucy's house to study for our exam. Her dad will drive me home at 9. Don't cook for me, I'll eat there!\nKim", q:"Why did Kim write this message?",
+       options:["to ask her mum to pick her up","to explain where she is and what she is doing","to invite Lucy for dinner"], answer:1,
+       explain:"Kim cho mẹ biết đang ở nhà Lucy học bài, về lúc 9 giờ và ăn tối ở đó. A sai vì bố Lucy sẽ chở Kim về." }
+    ]},
+  { id:"a2-r2", part:"Reading Part 3", title:"My summer job at the animal centre",
+    instructions:"Read the text and the questions. For each question, choose the correct answer.",
+    passage:`My name is Hoa and I'm sixteen. Last summer I got a job at an animal centre near my grandparents' village. The centre looks after dogs and cats that don't have homes. I worked there three mornings a week, from eight until twelve.
+
+On my first day I was a bit nervous because I didn't know anyone. But the manager, Mrs Lan, was really kind. She showed me how to clean the cages and prepare the food. I thought the work would be easy, but it was actually quite hard. The dogs needed walking twice a day, and some of them were very strong!
+
+My favourite animal was an old brown dog called Lucky. He was shy at first and he didn't eat much. After two weeks, he started to wait for me at the door every morning. I was very happy when a young family took him home in August.
+
+The job didn't pay much money, but I learned a lot. Now I want to study to become a vet. Next summer I'm going to work at the centre again – this time every day!`,
+    questions:[
+     { q:"Why did Hoa feel nervous on her first day?", options:["She didn't know the people there.","She was afraid of dogs.","The manager was not friendly."], answer:0,
+       explain:"'I was a bit nervous because I didn't know anyone.' C sai vì Mrs Lan 'was really kind'." },
+     { q:"What did Hoa think about the work?", options:["It was easier than she expected.","It was harder than she expected.","It was boring."], answer:1,
+       explain:"'I thought the work would be easy, but it was actually quite hard.'" },
+     { q:"At first, Lucky", options:["was very friendly.","didn't want much food.","waited at the door for Hoa."], answer:1,
+       explain:"'He was shy at first and he didn't eat much.' Việc chờ ở cửa chỉ xảy ra sau hai tuần." },
+     { q:"How did Hoa feel when Lucky left the centre?", options:["sad because she missed him","angry with the family","pleased for him"], answer:2,
+       explain:"'I was very happy when a young family took him home' – Hoa vui vì Lucky có nhà mới." },
+     { q:"What is Hoa going to do next summer?", options:["work at the centre more often","start studying to be a vet","visit her grandparents every day"], answer:0,
+       explain:"'Next summer I'm going to work at the centre again – this time every day!' (trước đây chỉ 3 buổi/tuần)." }
+    ]}
+ ],
+ listening: [
+  { id:"a2-l1", part:"Listening Part 2", title:"Leo's birthday party",
+    instructions:"You will hear Jack talking to his friend Mai on the phone. For each question, choose the correct answer. You can listen twice.",
+    script:[
+     {speaker:"M", text:"Hi Mai, it's Jack. Are you coming to Leo's birthday party on Saturday?"},
+     {speaker:"F", text:"Yes, of course! Is it still at his house?"},
+     {speaker:"M", text:"No, they changed it. It's at the bowling centre in Park Street now."},
+     {speaker:"F", text:"Oh, great. What time does it start? Four o'clock?"},
+     {speaker:"M", text:"It was four, but now it's half past three, because the bowling centre closes at seven."},
+     {speaker:"F", text:"OK. Should I bring some food?"},
+     {speaker:"M", text:"No, his mum's ordering pizza. But could you bring some drinks? I'm bringing the cake."},
+     {speaker:"F", text:"Sure. How are you getting there? By bus?"},
+     {speaker:"M", text:"The buses are terrible on Saturdays. My dad's driving me. We can pick you up if you like."},
+     {speaker:"F", text:"That would be great, thanks! What are you giving Leo?"},
+     {speaker:"M", text:"I wanted to buy him a video game, but they were too expensive, so I got him a book about football."},
+     {speaker:"F", text:"He'll love that."}
+    ],
+    questions:[
+     { q:"Where is the party?", options:["at Leo's house","at the bowling centre","at a pizza restaurant"], answer:1, explain:"'It's at the bowling centre in Park Street now.' Nhà Leo là địa điểm cũ." },
+     { q:"What time does the party start?", options:["3.30","4.00","7.00"], answer:0, explain:"'It was four, but now it's half past three' – bẫy: 4 giờ là giờ cũ, 7 giờ là giờ đóng cửa." },
+     { q:"What will Mai bring?", options:["food","drinks","a cake"], answer:1, explain:"'Could you bring some drinks?' Mẹ Leo đặt pizza, Jack mang bánh." },
+     { q:"How will Mai get to the party?", options:["by bus","by car","on foot"], answer:1, explain:"'My dad's driving me. We can pick you up' – Mai đi cùng xe với Jack." },
+     { q:"What present has Jack bought?", options:["a video game","a football","a book"], answer:2, explain:"'I got him a book about football.' Trò chơi điện tử quá đắt." }
+    ]},
+  { id:"a2-l2", part:"Listening Part 3", title:"The school trip",
+    instructions:"You will hear a teacher talking to her class about a school trip. For each question, choose the correct answer. You can listen twice.",
+    script:[
+     {speaker:"F", text:"Good morning, everyone. I want to tell you about our school trip to the science museum next Friday. We're meeting outside the school gate at eight fifteen, not in the classroom, so please don't be late. The coach leaves at eight thirty."},
+     {speaker:"F", text:"The trip costs twelve pounds, and that includes the museum ticket and lunch. Please give the money to Mr Davis, not to me, by Wednesday."},
+     {speaker:"F", text:"You don't need to bring food, but bring a bottle of water and a notebook, because there's a quiz in the space room! Oh, and wear comfortable shoes, because we'll be walking a lot. We'll be back at school at about four o'clock."}
+    ],
+    questions:[
+     { q:"Where will the students meet?", options:["in the classroom","outside the school gate","at the museum"], answer:1, explain:"'We're meeting outside the school gate… not in the classroom.'" },
+     { q:"How much does the trip cost?", options:["£8","£12","£15"], answer:1, explain:"'The trip costs twelve pounds' – đã gồm vé và bữa trưa." },
+     { q:"Who should students give the money to?", options:["Mr Davis","the speaker","the museum"], answer:0, explain:"'Give the money to Mr Davis, not to me.'" },
+     { q:"What should students bring?", options:["lunch","a notebook","a camera"], answer:1, explain:"'Bring a bottle of water and a notebook.' Không cần mang đồ ăn." },
+     { q:"What time will they return to school?", options:["3 o'clock","4 o'clock","8.30"], answer:1, explain:"'We'll be back at school at about four o'clock.'" }
+    ]}
+ ],
+ writing: [
+  { id:"a2-w1", part:"Writing Part 6", title:"Email: câu lạc bộ thể thao mới", min:25, max:60,
+    intro:"You have joined a new sports club. Write an email to your English friend Alex.",
+    points:["say which sport you are doing","say when you go to the club","explain why you like it"],
+    outro:"Write 25 words or more." },
+  { id:"a2-w2", part:"Writing Part 7", title:"Câu chuyện theo tranh: chú chó bị lạc", min:35, max:80,
+    intro:"Look at the three pictures. Write the story shown in the pictures.",
+    points:["Picture 1: A girl is walking in the park and sees a small dog alone.","Picture 2: She reads the name and phone number on the dog's collar and makes a call.","Picture 3: A happy old man arrives, thanks her and buys her an ice cream."],
+    outro:"Write 35 words or more." }
+ ],
+ speaking: [
+  { id:"a2-s1", part:"Speaking Part 1", title:"Giới thiệu bản thân", tip:"Trả lời mỗi câu 1–3 câu ngắn, thêm một chi tiết hoặc lý do.",
+    instructions:"The examiner asks you questions about yourself.",
+    questions:["What's your name, and where do you live?","Tell me about your school or your work.","What do you like doing at the weekend?","Tell me about your best friend.","What did you eat for dinner yesterday?"] },
+  { id:"a2-s2", part:"Speaking Part 2", title:"Các kiểu kỳ nghỉ", tip:"Nói về từng lựa chọn, dùng 'I like… because…', 'I don't like… because…'.",
+    instructions:"Here are some different holidays: going to the beach, visiting a big city, camping in the mountains, visiting museums, staying at home.",
+    questions:["Do you like these different holidays? Why or why not?","Which of these holidays do you think is the most interesting?","Where did you go on your last holiday?","Do you prefer holidays with your family or with your friends? Why?"] }
+ ]
+},
+B1: {
+ reading: [
+  { id:"b1-r1", part:"Reading Part 5", title:"Street food in Hanoi",
+    instructions:"For each question, choose the correct answer to fill the gap.",
+    passage:`Street food is an important (1) ___ of daily life in many Asian cities. In Hanoi, for example, thousands of small stalls (2) ___ cheap and tasty meals from early morning until late at night. Many of these businesses have been run by the same family for generations, and the recipes are often (3) ___ secret.
+
+Visitors are sometimes surprised to see people sitting on tiny plastic chairs on the pavement, but this is all (4) ___ of the experience. Recently, some cities have tried to (5) ___ the number of street stalls because of problems with traffic. However, many people believe that street food should be (6) ___, as it attracts tourists and gives work to local people.`,
+    questions:[
+     { q:"Gap 1", options:["feature","detail","point","item"], answer:0, explain:"'an important feature of daily life' = một nét đặc trưng quan trọng. Các từ còn lại không kết hợp với 'of daily life' theo nghĩa này." },
+     { q:"Gap 2", options:["serve","deliver","hand","pass"], answer:0, explain:"'serve meals' là cụm cố định (phục vụ món ăn)." },
+     { q:"Gap 3", options:["held","kept","stayed","put"], answer:1, explain:"'keep something secret' → bị động 'are kept secret'." },
+     { q:"Gap 4", options:["part","piece","section","share"], answer:0, explain:"'part of the experience' = một phần của trải nghiệm." },
+     { q:"Gap 5", options:["reduce","shorten","fall","sink"], answer:0, explain:"'reduce the number' = giảm số lượng. 'fall/sink' là nội động từ, không có tân ngữ." },
+     { q:"Gap 6", options:["protected","defended","covered","prevented"], answer:0, explain:"'should be protected' = nên được bảo vệ, giữ gìn." }
+    ]},
+  { id:"b1-r2", part:"Reading Part 3", title:"The young chef who learned from mistakes",
+    instructions:"Read the text and the questions. For each question, choose the correct answer.",
+    passage:`When Duc was twelve, he burned his first omelette so badly that his mother had to open every window in the flat. 'Most people would have given up,' he laughs. 'But I wanted to know what I'd done wrong.' Seven years later, he is the youngest chef at a busy restaurant in Da Nang.
+
+Duc didn't go to cooking school. Instead, he learned by watching online videos and by practising on his family every weekend. 'They weren't always happy about it,' he admits. 'My sister once refused to eat anything I made for a whole month.' When he was sixteen, he started working in a restaurant kitchen during the school holidays, washing dishes and cutting vegetables. The head chef noticed how carefully he worked and began teaching him.
+
+The job is not easy. Duc often works twelve hours a day, and he rarely has time to see his friends. 'People think being a chef is about creating beautiful dishes,' he says. 'Actually, a lot of it is cleaning and planning. You need to be organised more than creative.'
+
+Next year, Duc plans to spend six months in Japan, learning from a sushi master. He is saving most of his salary for the trip. 'I'll miss home, of course, but I think it's the right time. If I wait until I'm older, I might have too many responsibilities.'
+
+His advice for young people who want to cook? 'Don't be afraid of mistakes. That burned omelette taught me more than any recipe.'`,
+    questions:[
+     { q:"What does Duc say about his first attempt at cooking?", options:["It made him want to understand his mistake.","It made his mother angry with him.","He decided to stop cooking for a while.","He was embarrassed in front of his friends."], answer:0, explain:"'But I wanted to know what I'd done wrong.'" },
+     { q:"How did Duc learn to cook?", options:["at a cooking school","mainly by teaching himself at home","from his sister","from his mother"], answer:1, explain:"'He learned by watching online videos and by practising on his family.'" },
+     { q:"Why did the head chef start teaching Duc?", options:["Duc asked him for lessons.","Duc was very careful in his work.","Duc could cut vegetables quickly.","The restaurant needed a new chef."], answer:1, explain:"'The head chef noticed how carefully he worked and began teaching him.'" },
+     { q:"What does Duc say about being a chef?", options:["Creativity is the most important skill.","It leaves him no free time at all.","Being organised matters more than people expect.","Cleaning is the part he enjoys most."], answer:2, explain:"'You need to be organised more than creative.' B quá tuyệt đối: anh 'rarely' gặp bạn, không phải 'no free time at all'." },
+     { q:"Why does Duc want to go to Japan next year?", options:["He has finished saving money.","He feels it is a good moment in his life.","His restaurant is sending him.","He wants to live there permanently."], answer:1, explain:"'I think it's the right time. If I wait until I'm older, I might have too many responsibilities.' A sai: anh vẫn đang tiết kiệm." }
+    ]}
+ ],
+ listening: [
+  { id:"b1-l1", part:"Listening Part 4", title:"Interview with a mountain guide",
+    instructions:"You will hear an interview with Sophie Clarke, a young mountain guide. For each question, choose the correct answer. You can listen twice.",
+    script:[
+     {speaker:"M", text:"Today I'm talking to Sophie Clarke, who at twenty-three is one of the youngest mountain guides in Scotland. Sophie, how did you get started?"},
+     {speaker:"F", text:"Well, my parents took me walking in the hills almost every weekend when I was a child. I didn't always enjoy it, to be honest! It was only when I joined a climbing club at university that I really fell in love with the mountains."},
+     {speaker:"M", text:"What does a typical day look like?"},
+     {speaker:"F", text:"There's no typical day, really. But I always start by checking the weather forecast very carefully, even before breakfast. In Scotland, the weather can change in minutes, and that's the biggest danger for walkers."},
+     {speaker:"M", text:"What kind of people do you guide?"},
+     {speaker:"F", text:"All sorts. Lots of people think my groups are mostly experienced climbers, but actually most are complete beginners who want to try something new. That's what I love, seeing their confidence grow."},
+     {speaker:"M", text:"Is there anything difficult about the job?"},
+     {speaker:"F", text:"The money isn't great, and winter can be quiet. But the hardest thing is saying no to people. Sometimes a group really wants to reach the top, and I have to tell them it's not safe to continue."},
+     {speaker:"M", text:"And your plans for the future?"},
+     {speaker:"F", text:"I'd like to write a guidebook for families. There's lots of information for serious climbers, but very little for parents with young children."}
+    ],
+    questions:[
+     { q:"When did Sophie start to love the mountains?", options:["when she was a young child","when she was at university","when she started work"], answer:1, explain:"'It was only when I joined a climbing club at university that I really fell in love…' Hồi nhỏ cô 'didn't always enjoy it'." },
+     { q:"What does Sophie always do first?", options:["eat a big breakfast","check the weather","prepare the equipment"], answer:1, explain:"'I always start by checking the weather forecast… even before breakfast.'" },
+     { q:"Most of the people Sophie guides are", options:["experienced climbers","families with children","people who are new to it"], answer:2, explain:"'Most are complete beginners.' A là điều người khác nghĩ (bẫy)." },
+     { q:"What does Sophie find hardest about her job?", options:["earning enough money","the quiet winter months","telling groups to turn back"], answer:2, explain:"'The hardest thing is saying no to people… it's not safe to continue.'" },
+     { q:"Sophie's guidebook will be for", options:["serious climbers","parents with young children","tourists visiting Scotland"], answer:1, explain:"'A guidebook for families… parents with young children.'" }
+    ]},
+  { id:"b1-l2", part:"Listening Part 3", title:"The Riverside Summer Festival",
+    instructions:"You will hear a radio announcement about a music festival. For each question, write the missing information in the gap. Write one word or a number. You can listen twice.",
+    script:[
+     {speaker:"F", text:"And now some news for music fans. The Riverside Summer Festival returns this year, and it's going to be bigger than ever. The festival takes place over three days, from the twelfth to the fourteenth of July, in Greenfield Park."},
+     {speaker:"F", text:"This year there will be more than forty bands, and for the first time there's a special stage just for young musicians under eighteen. Tickets cost twenty-five pounds for one day, or sixty pounds for the whole weekend, and you can buy them online or at the town library."},
+     {speaker:"F", text:"Please note that glass bottles are not allowed in the park, so bring a plastic one for water. There are free water stations everywhere. If you're coming by car, parking is limited, so the organisers recommend taking the train. The station is just a five-minute walk from the main entrance. And finally, don't forget your raincoat. Last year it rained on all three days!"}
+    ],
+    questions:[
+     { type:"gap", q:"The festival is held in ______ Park.", accept:["greenfield"], explain:"'…in Greenfield Park.'" },
+     { type:"gap", q:"There is a new stage for musicians under ______.", accept:["18","eighteen"], explain:"'…a special stage just for young musicians under eighteen.'" },
+     { type:"gap", q:"A weekend ticket costs £______.", accept:["60","sixty"], explain:"'…sixty pounds for the whole weekend.' £25 là vé một ngày." },
+     { type:"gap", q:"You can also buy tickets at the town ______.", accept:["library"], explain:"'…online or at the town library.'" },
+     { type:"gap", q:"The organisers suggest travelling by ______.", accept:["train"], explain:"'…the organisers recommend taking the train.'" },
+     { type:"gap", q:"Visitors should remember to bring a ______.", accept:["raincoat","rain coat","coat"], explain:"'Don't forget your raincoat.'" }
+    ]}
+ ],
+ writing: [
+  { id:"b1-w1", part:"Writing Part 1", title:"Email trả lời Sam", min:90, max:120,
+    intro:"Read this email from your English-speaking friend Sam and the notes you have made.",
+    email:[["Hi! I'm so happy you're coming to visit me next month!","Great!"],["I was thinking we could go to the beach or visit the old castle. Which would you prefer?","Say which and why"],["Also, is there any food you don't eat?","Tell Sam"],["And what would you like to do in the evenings?","Suggest…"],["Write back soon! Sam",""]],
+    outro:"Write your email to Sam using all the notes. Write about 100 words." },
+  { id:"b1-w2", part:"Writing Part 2", title:"Bài báo: The best day of my life", min:90, max:120,
+    intro:"You see this notice in an English-language magazine for teenagers.",
+    points:["Articles wanted! THE BEST DAY OF MY LIFE","What happened? Who were you with?","Why was it so special?"],
+    outro:"Write an article answering these questions. Write about 100 words." }
+ ],
+ speaking: [
+  { id:"b1-s1", part:"Speaking Part 1", title:"Phỏng vấn cá nhân", tip:"Mở rộng câu trả lời bằng ví dụ và lý do; tránh chỉ trả lời 'Yes/No'.",
+    instructions:"The examiner asks you questions about your life and interests.",
+    questions:["What do you usually do in your free time?","Tell me about your favourite teacher.","How do you usually travel to school or work?","What did you do last weekend?","Do you think you will use English in the future? Why?"] },
+  { id:"b1-s2", part:"Speaking Part 3", title:"Thảo luận: kết bạn ở thành phố mới", tip:"Bàn từng ý, đưa ra ưu và nhược điểm, rồi mới chọn phương án tốt nhất.",
+    instructions:"A young man is moving to a new city where he doesn't know anyone. Here are some ideas to help him make friends: joining a sports club, taking an evening class, volunteering, using social media, talking to neighbours.",
+    questions:["Talk about how each of these ideas could help him make friends.","Which idea do you think would be the best? Why?"] },
+  { id:"b1-s3", part:"Speaking Part 4", title:"Thảo luận mở rộng: tình bạn", tip:"Đưa ra ý kiến, giải thích, cho ví dụ từ trải nghiệm của bạn.",
+    instructions:"The examiner asks you more general questions related to Part 3.",
+    questions:["Is it easy to make friends in a new place? Why or why not?","Do you prefer to have many friends or a few close friends?","Can people make friends online as easily as face to face?","What makes someone a good friend?"] }
+ ]
+},
+B2: {
+ reading: [
+  { id:"b2-r1", part:"Reading Part 1", title:"The rise of urban gardening",
+    instructions:"For each question, decide which answer (A, B, C or D) best fits each gap.",
+    passage:`Over the past decade, urban gardening has (1) ___ in popularity across the world. From rooftop vegetable plots to community gardens in abandoned car parks, city dwellers are increasingly (2) ___ advantage of every available space to grow their own food.
+
+Supporters argue that gardening not only provides fresh produce but also (3) ___ a sense of community among neighbours who might otherwise never meet. Critics, (4) ___, point out that the amount of food produced is tiny compared to what cities actually consume. Nevertheless, research suggests that people who garden regularly tend to (5) ___ healthier diets and report lower levels of stress. For many participants, the real value lies not in the harvest itself but in the chance to get back (6) ___ touch with nature in an otherwise concrete environment.`,
+    questions:[
+     { q:"Gap 1", options:["grown","raised","lifted","enlarged"], answer:0, explain:"'grow in popularity' là collocation (ngày càng phổ biến)." },
+     { q:"Gap 2", options:["taking","making","having","getting"], answer:0, explain:"'take advantage of' = tận dụng." },
+     { q:"Gap 3", options:["fosters","nurses","breeds","rears"], answer:0, explain:"'foster a sense of community' = nuôi dưỡng tinh thần cộng đồng. 'breed' thường đi với ý tiêu cực." },
+     { q:"Gap 4", options:["however","although","despite","whereas"], answer:0, explain:"'however' đứng giữa hai dấu phẩy để chỉ sự đối lập; 'although/whereas' cần mệnh đề, 'despite' cần danh từ." },
+     { q:"Gap 5", options:["adopt","take","accept","carry"], answer:0, explain:"'adopt a healthier diet' = áp dụng chế độ ăn lành mạnh hơn." },
+     { q:"Gap 6", options:["in","on","at","by"], answer:0, explain:"'(get back) in touch with' – cụm giới từ cố định." }
+    ]},
+  { id:"b2-r2", part:"Reading Part 4", title:"Key word transformation",
+    instructions:"Complete the second sentence so that it has a similar meaning to the first sentence, using the word given. Do not change the word given. Use between two and five words, including the word given.",
+    questions:[
+     { type:"gap", text:"I haven't seen Linh since she moved to Hue.\nKey word: LAST", q:"The ______ Linh was before she moved to Hue.", accept:["last time i saw"], explain:"Hiện tại hoàn thành với 'since' ↔ 'The last time I saw… was…'." },
+     { type:"gap", text:"It was wrong of you to leave without telling anyone.\nKey word: SHOULD", q:"You ______ without telling anyone.", accept:["should not have left","shouldn't have left"], explain:"Chỉ trích hành động trong quá khứ: should not have + V3." },
+     { type:"gap", text:"People say that the museum is haunted.\nKey word: SAID", q:"The museum ______ haunted.", accept:["is said to be"], explain:"Bị động tường thuật: S + is said + to V." },
+     { type:"gap", text:"I'd prefer you not to smoke in here.\nKey word: RATHER", q:"I'd ______ smoke in here.", accept:["rather you did not","rather you didn't"], explain:"would rather + S + quá khứ đơn (nói về hiện tại/tương lai)." },
+     { type:"gap", text:"They cancelled the concert because of the storm.\nKey word: CALLED", q:"The concert ______ because of the storm.", accept:["was called off"], explain:"call off = cancel; chuyển sang bị động: was called off." }
+    ]},
+  { id:"b2-r3", part:"Reading Part 5", title:"In praise of slow travel",
+    instructions:"You are going to read an article. For each question, choose the answer (A, B, C or D) which you think fits best according to the text.",
+    passage:`A few years ago, I would have laughed at the idea of spending eleven hours on a train when a flight could get me to the same place in two. Time, I believed, was the one thing I could never have enough of, and any hour spent 'in between' places was an hour wasted. It took a volcanic eruption, and the cancellation of every flight across northern Europe, to change my mind.
+
+Stranded in Lisbon with a meeting in Berlin, I had no choice but to cross the continent by rail. I boarded the first train expecting a long, dull journey. Instead, I found myself watching the landscape shift from dry hills to green valleys, chatting with a retired engineer who had travelled the same route every summer for forty years, and, for the first time in months, reading a novel from cover to cover. By the time I arrived, the meeting seemed far less important than it had a few days earlier.
+
+This, I have since learned, is the essence of what enthusiasts call 'slow travel'. It is not simply about choosing trains over planes, though environmental concerns certainly play a part. Rather, it is a philosophy that values the journey as much as the destination. Slow travellers tend to stay longer in fewer places, to rent flats rather than book hotels, and to shop at local markets instead of eating in tourist restaurants.
+
+Of course, slow travel has its critics. It is, they argue, a luxury for those with flexible jobs and generous holidays, hardly an option for a family with two weeks off a year. There is some truth in this. But I would argue that slowness is less about the number of days available than about attitude. Even a weekend trip can be 'slow' if we resist the urge to see everything and allow ourselves simply to be somewhere.
+
+I still fly occasionally. But these days, when I look at a map, I no longer see only departure and arrival points. I see everything in between.`,
+    questions:[
+     { q:"What does the writer say about his attitude to travel in the past?", options:["He considered time spent travelling to be of little value.","He preferred trains but rarely had time for them.","He enjoyed flying more than any other transport.","He worried about how much time he spent travelling."], answer:0, explain:"'Any hour spent in between places was an hour wasted.'" },
+     { q:"Why did the writer travel from Lisbon to Berlin by train?", options:["He wanted to try a new experience.","He had been advised to avoid flying.","Air travel was not possible at the time.","A colleague had recommended the route."], answer:2, explain:"Núi lửa phun trào khiến mọi chuyến bay bị huỷ: 'I had no choice but to cross the continent by rail.'" },
+     { q:"What does the writer suggest about the train journey?", options:["It was as boring as he had expected.","It changed his view of what really mattered.","It made him late for his meeting.","It reminded him of childhood holidays."], answer:1, explain:"'The meeting seemed far less important than it had a few days earlier.'" },
+     { q:"According to the writer, slow travel is mainly", options:["a way to reduce environmental damage.","a cheaper alternative to staying in hotels.","an approach that values the whole trip.","a trend among retired people."], answer:2, explain:"'A philosophy that values the journey as much as the destination.' Môi trường chỉ 'play a part'." },
+     { q:"How does the writer respond to critics of slow travel?", options:["He rejects their argument completely.","He accepts that it is only for the wealthy.","He partly agrees but says attitude matters more.","He suggests people should take longer holidays."], answer:2, explain:"'There is some truth in this. But… slowness is less about the number of days available than about attitude.'" }
+    ]}
+ ],
+ listening: [
+  { id:"b2-l1", part:"Listening Part 4", title:"Interview with a sound designer",
+    instructions:"You will hear an interview with Tom Walker, who creates sound effects for films. For each question, choose the best answer. You can listen twice.",
+    script:[
+     {speaker:"F", text:"My guest today is Tom Walker, who creates sound effects for films. Tom, how did you end up in this unusual job?"},
+     {speaker:"M", text:"Completely by accident! I was studying music, and a friend making a short film asked me to help with the soundtrack. I ended up spending more time recording footsteps and doors than composing music, and I realised I found that far more interesting."},
+     {speaker:"F", text:"People might be surprised by how sounds are made for films."},
+     {speaker:"M", text:"Yes. Most of what you hear isn't recorded on set at all. The microphones there are focused on the actors' voices. So almost everything else, from rain to punches, is added later in a studio. And often the real thing doesn't sound convincing. A real punch is actually quite quiet, so we might hit a cabbage instead."},
+     {speaker:"F", text:"What's the most challenging part of your work?"},
+     {speaker:"M", text:"Deadlines, without a doubt. The sound is always one of the last things to be finished, so if the filming runs late, we're the ones who have to work through the night. The creative side, strangely, is the easy part."},
+     {speaker:"F", text:"Has technology changed the job?"},
+     {speaker:"M", text:"Enormously. There are huge online libraries of sounds now, which saves time. But I worry that some younger designers rely on them too much. The best sounds are usually ones you've made yourself for that specific moment."},
+     {speaker:"F", text:"Any advice for listeners who'd like to get into the industry?"},
+     {speaker:"M", text:"Start listening properly. Close your eyes on a street corner for five minutes and notice everything. It sounds simple, but it trains your ear better than any course."}
+    ],
+    questions:[
+     { q:"How did Tom become a sound designer?", options:["He studied it at university.","He discovered an interest while helping a friend.","A film director offered him a job."], answer:1, explain:"'A friend making a short film asked me to help… I found that far more interesting.' Anh học âm nhạc, không học thiết kế âm thanh." },
+     { q:"What does Tom say about recording on film sets?", options:["The equipment is mainly used for dialogue.","It produces the most realistic effects.","It is too expensive for most films."], answer:0, explain:"'The microphones there are focused on the actors' voices.'" },
+     { q:"Tom finds the hardest part of his job is", options:["thinking of creative ideas.","working with actors.","finishing on time."], answer:2, explain:"'Deadlines, without a doubt… The creative side, strangely, is the easy part.'" },
+     { q:"What is Tom's opinion of online sound libraries?", options:["They should be used with caution.","They have made the job less creative for everyone.","They are too expensive for young designers."], answer:0, explain:"Anh thừa nhận chúng tiết kiệm thời gian nhưng lo người trẻ 'rely on them too much' → nên dùng thận trọng." },
+     { q:"Tom advises people who want to do his job to", options:["take a specialist course.","pay close attention to everyday sounds.","record sounds in their free time."], answer:1, explain:"'Close your eyes on a street corner… and notice everything.'" }
+    ]},
+  { id:"b2-l2", part:"Listening Part 2", title:"Volunteering with sea turtles",
+    instructions:"You will hear a woman called Laura talking about volunteering on a turtle conservation project. For each question, complete the sentence with a word or short phrase. You can listen twice.",
+    script:[
+     {speaker:"F", text:"Hi everyone. I'm Laura, and last year I spent three months volunteering on a sea turtle project on a small island in Malaysia. I'd originally applied to work with dolphins, but that project was full, and I'm so glad it was."},
+     {speaker:"F", text:"Our main job was to protect the turtle nests on the beach. Every night we'd walk the beach in pairs, looking for female turtles coming out of the sea to lay their eggs. We had to use red torches, because white light confuses the turtles."},
+     {speaker:"F", text:"Once the eggs were laid, we'd move them to a special area called a hatchery, where they were safe from dogs and from people who might steal them. The hardest part, honestly, wasn't the long nights. It was the heat during the day, which made sleeping almost impossible."},
+     {speaker:"F", text:"The best moment was watching the baby turtles race towards the sea. Only about one in a thousand survive to adulthood, which is why every nest matters. If you're thinking of volunteering, my advice is to learn some basic Malay before you go. The local people really appreciated it."}
+    ],
+    questions:[
+     { type:"gap", q:"Laura originally applied to work with ______.", accept:["dolphins","dolphin"], explain:"'I'd originally applied to work with dolphins.'" },
+     { type:"gap", q:"Volunteers walked the beach every night in ______.", accept:["pairs","pair","twos"], explain:"'We'd walk the beach in pairs.'" },
+     { type:"gap", q:"Volunteers had to use ______ torches.", accept:["red"], explain:"'We had to use red torches, because white light confuses the turtles.'" },
+     { type:"gap", q:"The eggs were moved to an area called a ______.", accept:["hatchery"], explain:"'…a special area called a hatchery.'" },
+     { type:"gap", q:"Laura found the ______ the most difficult thing.", accept:["heat","daytime heat","heat during the day"], explain:"'The hardest part… wasn't the long nights. It was the heat during the day.' (bẫy: long nights)" },
+     { type:"gap", q:"Laura recommends learning some basic ______.", accept:["malay"], explain:"'Learn some basic Malay before you go.'" }
+    ]}
+ ],
+ writing: [
+  { id:"b2-w1", part:"Writing Part 1", title:"Essay: học trực tuyến hay học trên lớp", min:140, max:190,
+    intro:"In your English class you have been talking about technology and education. Now your teacher has asked you to write an essay.",
+    points:["Some people believe that students learn better online than in a classroom. Do you agree?","Notes – write about: 1. cost  2. motivation  3. ______ (your own idea)"],
+    outro:"Write your essay using all the notes and give reasons for your point of view. Write 140–190 words." },
+  { id:"b2-w2", part:"Writing Part 2", title:"Review: một quán ăn", min:140, max:190,
+    intro:"You see this announcement on an English-language website.",
+    points:["Reviews wanted: A PLACE TO EAT","Have you been to a café or restaurant recently that you would (or would not) recommend?","Describe the food, the service and the atmosphere, and say whether you would recommend it to other people."],
+    outro:"Write your review. Write 140–190 words." }
+ ],
+ speaking: [
+  { id:"b2-s1", part:"Speaking Part 1", title:"Interview", tip:"Trả lời 2–4 câu, dùng cấu trúc đa dạng (điều kiện, so sánh, quá khứ).",
+    instructions:"The examiner asks you questions about yourself.",
+    questions:["Where are you from, and what do you like about living there?","How important is it for you to spend time with your family?","If you could learn a new skill, what would it be and why?","Do you prefer reading books or watching films? Why?"] },
+  { id:"b2-s2", part:"Speaking Part 2", title:"So sánh hai bức ảnh: tổ chức tiệc", tip:"Nói liên tục khoảng 1 phút: so sánh, suy đoán ('They might…', 'It looks as if…'), trả lời câu hỏi chính.",
+    instructions:"Photo A shows a group of friends celebrating a birthday in a busy restaurant. Photo B shows a family having a quiet picnic in a park.",
+    questions:["Compare the two photos and say why the people might have chosen to celebrate in these places.","Which kind of celebration would you prefer, and why?"] },
+  { id:"b2-s3", part:"Speaking Parts 3 & 4", title:"Giảm ùn tắc giao thông", tip:"Phần 3: đánh giá từng ý rồi đi đến quyết định. Phần 4: đưa ý kiến có lập luận.",
+    instructions:"Here are some ways a town could reduce traffic: better public transport, more cycle lanes, higher parking prices, car-free days, more people working from home.",
+    questions:["How effective would each of these ideas be in reducing traffic?","Which idea do you think would be the most effective? Why?","Do you think people will use cars less in the future?","Should governments make public transport free? Why or why not?"] }
+ ]
+}
+};
+
+const LEVELS = {
+  A2:{ name:"A2 Key", exam:"A2 Key (KET)", cefr:"A2", opts:3 },
+  B1:{ name:"B1 Preliminary", exam:"B1 Preliminary (PET)", cefr:"B1", opts:3 },
+  B2:{ name:"B2 First", exam:"B2 First (FCE)", cefr:"B2", opts:4 }
+};
+const ICONS = {
+  reading:'<svg viewBox="0 0 24 24"><path d="M3 5.5C5.5 4 9 4 12 6c3-2 6.5-2 9-.5V19c-2.5-1.5-6-1.5-9 .5-3-2-6.5-2-9-.5z"/><path d="M12 6v13.5"/></svg>',
+  listening:'<svg viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6" rx="1.5"/><rect x="16.5" y="14" width="4.5" height="6" rx="1.5"/></svg>',
+  writing:'<svg viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L9 19H5v-4z"/><path d="M13 7l4 4"/></svg>',
+  speaking:'<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>'
+};
+const SKILLS = {
+  reading:{ name:"Reading", vi:"Đọc hiểu", desc:"Thông báo ngắn, bài đọc dài, điền từ, viết lại câu." },
+  listening:{ name:"Listening", vi:"Nghe hiểu", desc:"Hội thoại và độc thoại, nghe tối đa hai lần như phòng thi." },
+  writing:{ name:"Writing", vi:"Viết", desc:"Email, bài báo, bài luận, review. Chấm theo 4 tiêu chí Cambridge." },
+  speaking:{ name:"Speaking", vi:"Nói", desc:"Trả lời câu hỏi giám khảo bằng giọng nói, nhận xét theo tiêu chí." }
+};
+const GEN_SPECS = {
+  A2:{ reading:[
+        {key:"notices", part:"Reading Part 1", label:"Part 1: Thông báo, tin nhắn ngắn", nOpts:3, nQ:5},
+        {key:"long", part:"Reading Part 3", label:"Part 3: Bài đọc dài", nOpts:3, nQ:5, words:"200-230"}],
+       listening:[
+        {key:"dialogue", part:"Listening Part 2", label:"Hội thoại, chọn đáp án", nOpts:3, nQ:5},
+        {key:"gapfill", part:"Listening Part 3", label:"Độc thoại, điền thông tin", nQ:5}] },
+  B1:{ reading:[
+        {key:"long", part:"Reading Part 3", label:"Part 3: Bài đọc dài", nOpts:4, nQ:5, words:"300-350"},
+        {key:"cloze", part:"Reading Part 5", label:"Part 5: Điền từ trắc nghiệm", nOpts:4, nQ:6}],
+       listening:[
+        {key:"dialogue", part:"Listening Part 4", label:"Phỏng vấn, chọn đáp án", nOpts:3, nQ:5},
+        {key:"gapfill", part:"Listening Part 3", label:"Độc thoại, điền thông tin", nQ:6}] },
+  B2:{ reading:[
+        {key:"cloze", part:"Reading Part 1", label:"Part 1: Điền từ trắc nghiệm", nOpts:4, nQ:8},
+        {key:"long", part:"Reading Part 5", label:"Part 5: Bài đọc dài", nOpts:4, nQ:6, words:"450-550"}],
+       listening:[
+        {key:"dialogue", part:"Listening Part 4", label:"Phỏng vấn, chọn đáp án", nOpts:3, nQ:6},
+        {key:"gapfill", part:"Listening Part 2", label:"Độc thoại, hoàn thành câu", nQ:8}] }
+};
+
+/* ================= TIỆN ÍCH ================= */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const LETTERS = "ABCD";
+const store = {
+  get(k,d){ try{ const v = localStorage.getItem(k); return v==null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} }
+};
+const norm = s => String(s||"").toLowerCase().replace(/[’‘`]/g,"'").replace(/[^a-z0-9' ]/g," ").replace(/\s+/g," ").trim();
+const countWords = t => (t.trim().match(/[A-Za-z0-9’']+/g) || []).length;
+const fmtTime = ms => { const s = Math.floor(ms/1000); return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); };
+const paras = t => String(t||"").split(/\n\s*\n/).map(p => `<p>${esc(p.trim()).replace(/\n/g,"<br>").replace(/\((\d+)\)\s*_{2,}/g,'<span class="gapmark">$1</span>')}</p>`).join("");
+
+let state = { level: store.get("cam-level","B1"), view:"home", skill:null, setId:null };
+if(!LEVELS[state.level]) state.level = "B1";
+let extra = store.get("cam-extra", {});
+let history = store.get("cam-history", []);
+let sample = null;
+
+function refreshAI(){
+  $$("[data-ai]").forEach(el => el.hidden = !sample);
+  $$("[data-noai]").forEach(el => el.hidden = !!sample);
+}
+(async () => {
+  try{ if(window.claude && typeof claude.use === "function"){ sample = await claude.use("sample"); } }catch(e){ sample = null; }
+  refreshAI();
+})();
+
+function errCopy(e){
+  const c = e && e.code;
+  if(c==="not_granted") return "Bạn chưa cho phép trang này dùng Claude. Tải lại trang và chọn Cho phép để dùng tính năng AI.";
+  if(c==="rate_limited") return "Đang có quá nhiều yêu cầu. Đợi một lát rồi bấm lại.";
+  if(c==="cancelled") return "Đã dừng.";
+  return "Không nhận được kết quả từ AI. Bấm lại để thử lần nữa.";
+}
+
+function getSets(level, skill){
+  return (BANK[level][skill]||[]).concat((extra[level] && extra[level][skill]) || []);
+}
+function findSet(level, skill, id){ return getSets(level, skill).find(s => s.id === id); }
+function record(entry){
+  history.push({ ...entry, level:state.level, at:Date.now() });
+  if(history.length > 300) history = history.slice(-300);
+  store.set("cam-history", history);
+}
+function bestFor(id){
+  const h = history.filter(x => x.setId === id && x.total);
+  return h.length ? Math.max(...h.map(x => Math.round(x.score/x.total*100))) : null;
+}
+
+/* ================= ĐIỀU HƯỚNG ================= */
+let timerId = null;
+function clearTimer(){ if(timerId){ clearInterval(timerId); timerId = null; } }
+function startTimer(){
+  clearTimer(); const t0 = Date.now(); const el = $("#timer");
+  timerId = setInterval(() => { if(el) el.textContent = fmtTime(Date.now()-t0); }, 1000);
+}
+let recognizer = null;
+function stopAll(){
+  clearTimer();
+  try{ window.speechSynthesis && speechSynthesis.cancel(); }catch(e){}
+  try{ recognizer && recognizer.stop(); }catch(e){}
+  recognizer = null;
+}
+function go(view, skill, setId){
+  state.view = view; state.skill = skill || null; state.setId = setId || null;
+  render(); window.scrollTo(0,0);
+}
+function render(){
+  stopAll();
+  renderLevels();
+  const app = $("#app");
+  if(state.view === "home") renderHome(app);
+  else if(state.view === "list") renderList(app);
+  else {
+    const set = findSet(state.level, state.skill, state.setId);
+    if(!set){ go("list", state.skill); return; }
+    if(state.skill === "reading" || state.skill === "listening") renderQuiz(app, set);
+    else if(state.skill === "writing") renderWriting(app, set);
+    else renderSpeaking(app, set);
+  }
+  refreshAI();
+}
+function renderLevels(){
+  $("#levels").innerHTML = Object.entries(LEVELS).map(([k,L]) =>
+    `<button data-level="${k}" aria-pressed="${k===state.level}">${L.name}</button>`).join("");
+  $$("#levels button").forEach(b => b.onclick = () => {
+    if(b.dataset.level === state.level) return;
+    state.level = b.dataset.level; store.set("cam-level", state.level);
+    go(state.view === "home" ? "home" : "list", state.skill);
+  });
+}
+$("#brand").onclick = () => go("home");
+$("#reset").onclick = () => {
+  if(!confirm("Xoá toàn bộ lịch sử làm bài, bài viết nháp và đề đã tạo bằng AI trên trình duyệt này?")) return;
+  history = []; extra = {};
+  store.del("cam-history"); store.del("cam-extra");
+  Object.keys(localStorage||{}).forEach(k => { if(k.startsWith("cam-draft-")) store.del(k); });
+  go("home");
+};
+
+/* ================= TRANG CHỦ ================= */
+function renderHome(app){
+  const L = LEVELS[state.level];
+  const fills = [1,3,0,2,1];
+  const sheet = fills.map((f,r) => `<div class="row"><span class="n">${r+1}</span>${[0,1,2,3].map(i =>
+    `<span class="l${i===f?" f":""}" style="animation-delay:${.35 + r*.18}s">${LETTERS[i]}</span>`).join("")}</div>`).join("");
+  const tiles = Object.entries(SKILLS).map(([k,s]) => {
+    const h = history.filter(x => x.level===state.level && x.skill===k && x.total);
+    const n = getSets(state.level,k).length;
+    const avg = h.length ? Math.round(h.reduce((a,x) => a + x.score/x.total, 0)/h.length*100) : null;
+    const stat = h.length ? `${h.length} lượt, trung bình ${avg}%` : "Chưa có kết quả";
+    return `<button class="tile" data-skill="${k}">${ICONS[k]}
+      <span class="tile-en">${s.name}</span><span class="tile-vi">${s.vi}</span>
+      <span class="tile-desc">${s.desc}</span><span class="tile-meta">${n} đề, ${stat}</span></button>`;
+  }).join("");
+  const recent = history.filter(x => x.level===state.level).slice(-6).reverse();
+  app.innerHTML = `
+    <section class="hero">
+      <div><h1>Luyện thi ${L.name}</h1>
+      <p>Đề luyện theo cấu trúc Cambridge English cho cả bốn kỹ năng. Chọn một kỹ năng để bắt đầu; đổi cấp độ ở góc trên.</p></div>
+      <div class="sheet" aria-hidden="true">${sheet}</div>
+    </section>
+    <div class="tiles">${tiles}</div>
+    <section class="recent"><h2>Kết quả gần đây</h2>
+      ${recent.length ? `<ul>${recent.map(x => `<li><span>${esc(SKILLS[x.skill].name)}: ${esc(x.title)}</span><span class="pct">${x.score}/${x.total}</span></li>`).join("")}</ul>`
+        : `<p class="empty">Chưa có bài nào ở cấp ${L.name}. Kết quả sẽ hiện ở đây sau khi bạn nộp bài.</p>`}
+    </section>`;
+  $$(".tile").forEach(t => t.onclick = () => go("list", t.dataset.skill));
+}
+
+/* ================= DANH SÁCH ĐỀ ================= */
+function renderList(app){
+  const L = LEVELS[state.level], S = SKILLS[state.skill];
+  const sets = getSets(state.level, state.skill);
+  const specs = (GEN_SPECS[state.level][state.skill]) || null;
+  app.innerHTML = `
+    <button class="back" id="back">‹ Trang chủ</button>
+    <h1 class="page-h">${S.name} <span style="font-weight:400;color:var(--muted)">${L.name}</span></h1>
+    <p class="page-sub">${S.desc}</p>
+    <ul class="sets">${sets.map(s => {
+      const nq = s.questions ? s.questions.length : 0;
+      const best = bestFor(s.id);
+      const meta = (state.skill==="writing") ? `${s.min}–${s.max} từ` : (nq ? `${nq} câu` : "");
+      return `<li><button class="set" data-id="${esc(s.id)}"><span class="set-part">${esc(s.part)}${s.generated?'<span class="tag">AI tạo</span>':""}</span>
+        <span class="set-title">${esc(s.title)}</span>
+        <span class="set-meta">${meta}${best!=null ? `, tốt nhất ${best}%` : ""}</span></button>
+        ${s.generated ? `<button class="del" data-del="${esc(s.id)}" aria-label="Xoá đề ${esc(s.title)}">Xoá</button>` : ""}</li>`;
+    }).join("")}</ul>
+    ${specs ? `<section class="gen" data-ai hidden>
+      <h3>Tạo thêm đề mới</h3>
+      <p>Claude soạn một đề mới theo đúng định dạng ${L.name}, có đáp án và giải thích tiếng Việt. Đề được lưu vào ngân hàng câu hỏi của bạn.</p>
+      <div class="gen-row">
+        <label class="field">Dạng bài<select id="gen-spec">${specs.map((s,i) => `<option value="${i}">${esc(s.label)}</option>`).join("")}</select></label>
+        <label class="field">Chủ đề (không bắt buộc)<input id="gen-topic" placeholder="ví dụ: môi trường, công nghệ, du lịch" maxlength="80"></label>
+        <button class="btn" id="gen-btn">Tạo đề</button>
+      </div>
+      <div class="status" id="gen-status" aria-live="polite"></div>
+    </section>` : ""}`;
+  $("#back").onclick = () => go("home");
+  $$(".set").forEach(b => b.onclick = () => go("exercise", state.skill, b.dataset.id));
+  $$(".del").forEach(b => b.onclick = () => {
+    if(!confirm("Xoá đề này khỏi ngân hàng câu hỏi?")) return;
+    const arr = extra[state.level][state.skill];
+    extra[state.level][state.skill] = arr.filter(s => s.id !== b.dataset.del);
+    store.set("cam-extra", extra); render();
+  });
+  const gb = $("#gen-btn");
+  if(gb) gb.onclick = () => generateSet(specs[+$("#gen-spec").value], $("#gen-topic").value.trim());
+}
+
+function genPrompt(spec, topic){
+  const L = LEVELS[state.level], skill = state.skill;
+  const opt = spec.nOpts || 0;
+  const topicLine = topic ? `Topic: ${topic}.` : "Choose a fresh everyday topic suitable for teenagers and young adults.";
+  let format = "", shape = "";
+  const mcqQ = `{"q":"question stem","options":[${Array.from({length:opt},(_,i)=>`"option ${LETTERS[i]}"`).join(",")}],"answer":0,"explain":"Vietnamese explanation quoting the key words from the text"}`;
+  const gapQ = `{"type":"gap","q":"sentence with the missing part shown as ______","accept":["answer","acceptable variant"],"explain":"Vietnamese explanation quoting the recording"}`;
+  if(skill === "reading"){
+    if(spec.key === "notices"){
+      format = `${spec.nQ} separate short texts (notices, signs, messages, emails of 15-35 words). Each question has its own "text" (use \\n for line breaks), a question stem and ${opt} options.`;
+      shape = `{"title":"short English title","instructions":"For each question, choose the correct answer.","passage":"","questions":[{"text":"the notice","q":"What does the notice say?","options":[...],"answer":0,"explain":"..."}]}`;
+    } else if(spec.key === "cloze"){
+      format = `One text of about ${spec.nQ*25+60} words with exactly ${spec.nQ} numbered gaps written as (1) ___, (2) ___ etc. Each question is "Gap n" with ${opt} single-word options testing vocabulary, collocation, phrasal verbs or linking words; exactly one option is correct.`;
+      shape = `{"title":"...","instructions":"For each question, choose the correct answer to fill the gap.","passage":"text with (1) ___ gaps, paragraphs separated by blank lines","questions":[${mcqQ.replace("question stem","Gap 1")}]}`;
+    } else {
+      format = `One text of ${spec.words} words (article, blog or interview) and ${spec.nQ} questions in text order, each with ${opt} options. Include distractors that mention words from the text but are wrong.`;
+      shape = `{"title":"...","instructions":"Read the text and the questions. For each question, choose the correct answer.","passage":"text, paragraphs separated by blank lines","questions":[${mcqQ}]}`;
+    }
+  } else {
+    if(spec.key === "gapfill"){
+      format = `A monologue (radio announcement, talk or guide) of about ${spec.nQ*45+60} words, split into 3-4 script chunks by one speaker. Then ${spec.nQ} sentence-completion questions in the order of the recording; each answer is one word, a number or a short phrase heard exactly in the recording.`;
+      shape = `{"title":"...","instructions":"You will hear ... For each question, write the missing information in the gap. You can listen twice.","script":[{"speaker":"F","text":"..."}],"questions":[${gapQ}]}`;
+    } else {
+      format = `A natural conversation or interview between a man (M) and a woman (F), 10-14 turns, about ${spec.nQ*60+80} words in total. Then ${spec.nQ} questions in the order of the recording, each with ${opt} options. Every wrong option should be mentioned or hinted at in the recording as a distractor.`;
+      shape = `{"title":"...","instructions":"You will hear ... For each question, choose the correct answer. You can listen twice.","script":[{"speaker":"M","text":"..."},{"speaker":"F","text":"..."}],"questions":[${mcqQ}]}`;
+    }
+  }
+  return `You write ORIGINAL practice material in the style of the Cambridge English ${L.exam} exam, ${spec.part}. Do not copy any real past paper.
+CEFR level: ${L.cefr}. Use vocabulary and grammar appropriate to this level. ${topicLine}
+Task format: ${format}
+"answer" is the 0-based index of the correct option. Explanations must be in Vietnamese and quote the relevant English words.
+Reply with ONLY one JSON object, no markdown, in this shape:
+${shape}`;
+}
+function validSet(d, spec){
+  if(!d || typeof d !== "object" || !Array.isArray(d.questions) || !d.questions.length) return false;
+  if(state.skill === "listening" && (!Array.isArray(d.script) || !d.script.length)) return false;
+  return d.questions.every(q => {
+    if(q.type === "gap") return typeof q.q === "string" && Array.isArray(q.accept) && q.accept.length;
+    return Array.isArray(q.options) && q.options.length >= 3 && Number.isInteger(q.answer) && q.answer >= 0 && q.answer < q.options.length;
+  });
+}
+async function generateSet(spec, topic){
+  const st = $("#gen-status"), btn = $("#gen-btn");
+  if(!sample){ st.textContent = "Tính năng AI không khả dụng ở đây."; return; }
+  btn.disabled = true;
+  st.innerHTML = `<span class="thinking"><span class="wave"><i></i><i></i><i></i><i></i></span>Claude đang soạn đề, thường mất 30–60 giây…</span>`;
+  try{
+    const d = await sample.json(genPrompt(spec, topic), { modelTier:"default", cache:false });
+    if(!validSet(d, spec)) throw { code:"bad_shape" };
+    const set = {
+      id:"ai-"+Date.now(), generated:true, part:spec.part,
+      title:String(d.title||"Đề mới"), instructions:String(d.instructions||""),
+      passage: typeof d.passage === "string" ? d.passage : "",
+      script: state.skill==="listening" ? d.script.map(l => ({ speaker: l.speaker==="M"?"M":"F", text:String(l.text||"") })) : undefined,
+      questions: d.questions.map(q => q.type==="gap"
+        ? { type:"gap", q:String(q.q), accept:q.accept.map(String), explain:String(q.explain||""), text:q.text?String(q.text):undefined }
+        : { q:String(q.q||""), options:q.options.map(String), answer:q.answer, explain:String(q.explain||""), text:q.text?String(q.text):undefined })
+    };
+    extra[state.level] = extra[state.level] || {};
+    extra[state.level][state.skill] = (extra[state.level][state.skill] || []).concat(set);
+    store.set("cam-extra", extra);
+    go("exercise", state.skill, set.id);
+  }catch(e){
+    st.innerHTML = `<span class="err">${e && e.code==="bad_shape" ? "Đề tạo ra chưa đúng định dạng. Bấm Tạo đề để thử lại." : esc(errCopy(e))}</span>`;
+    btn.disabled = false;
+  }
+}
+
+/* ================= READING & LISTENING ================= */
+function questionHTML(q, i){
+  const notice = q.text ? `<div class="notice">${esc(q.text)}</div>` : "";
+  if(q.type === "gap"){
+    const parts = String(q.q).split(/_{3,}/);
+    const input = `<input class="gapin" data-q="${i}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Câu ${i+1}">`;
+    const body = parts.length > 1 ? esc(parts[0]) + input + esc(parts.slice(1).join("")) : esc(q.q) + " " + input;
+    return `<div class="q" id="q${i}"><span class="qn">${i+1}</span><div>${notice}<p class="gapq">${body}</p></div><div class="explain" hidden></div></div>`;
+  }
+  return `<div class="q" id="q${i}"><span class="qn">${i+1}</span><div>${notice}<p class="qtext">${esc(q.q)}</p>
+    <div class="opts" role="radiogroup" aria-label="Câu ${i+1}">${q.options.map((o,j) =>
+      `<button class="opt" role="radio" aria-checked="false" data-q="${i}" data-o="${j}"><span class="lz">${LETTERS[j]}</span><span>${esc(o)}</span></button>`).join("")}</div></div>
+    <div class="explain" hidden></div></div>`;
+}
+function renderQuiz(app, set){
+  const isL = state.skill === "listening";
+  const hasPassage = !isL && set.passage;
+  const answers = new Array(set.questions.length).fill(null);
+  let submitted = false;
+  app.innerHTML = `
+    <button class="back" id="back">‹ Danh sách đề</button>
+    <div class="ex-head"><div><p class="ex-part">${esc(set.part)}</p><h2>${esc(set.title)}</h2><p class="ex-instr">${esc(set.instructions)}</p></div>
+      <div class="timer" id="timer" aria-label="Thời gian làm bài">00:00</div></div>
+    ${isL ? playerHTML() : ""}
+    <div class="ex-grid${hasPassage ? "" : " single"}">
+      ${hasPassage ? `<article class="passage">${paras(set.passage)}</article>` : ""}
+      <div><div class="qs">${set.questions.map(questionHTML).join("")}</div>
+        <div class="submitbar"><button class="btn" id="submit">Nộp bài</button><span class="count" id="count"></span></div>
+        <div id="result"></div>
+        ${isL ? `<details class="transcript" id="transcript" hidden><summary>Xem bản ghi (transcript)</summary><div class="passage">${set.script.map(l => `<p><span class="spk">${l.speaker==="M"?"Man":"Woman"}</span>${esc(l.text)}</p>`).join("")}</div></details>` : ""}
+      </div>
+    </div>`;
+  $("#back").onclick = () => go("list", state.skill);
+  startTimer();
+  const updateCount = () => {
+    const n = answers.filter(a => a !== null && a !== "").length;
+    $("#count").textContent = `Đã trả lời ${n}/${answers.length} câu`;
+  };
+  updateCount();
+  $$(".opt").forEach(b => b.onclick = () => {
+    if(submitted) return;
+    const qi = +b.dataset.q, oi = +b.dataset.o;
+    answers[qi] = oi;
+    $$(`.opt[data-q="${qi}"]`).forEach(x => x.setAttribute("aria-checked", String(+x.dataset.o === oi)));
+    updateCount();
+  });
+  $$(".gapin").forEach(inp => inp.oninput = () => { answers[+inp.dataset.q] = inp.value; updateCount(); });
+  if(isL) bindPlayer(set, () => submitted);
+
+  $("#submit").onclick = () => {
+    const unanswered = answers.filter(a => a === null || a === "").length;
+    if(unanswered && !confirm(`Còn ${unanswered} câu chưa trả lời. Vẫn nộp bài?`)) return;
+    submitted = true; clearTimer();
+    let score = 0;
+    set.questions.forEach((q,i) => {
+      const box = $("#q"+i); let ok;
+      if(q.type === "gap"){
+        const inp = box.querySelector(".gapin");
+        ok = q.accept.map(norm).includes(norm(answers[i]));
+        inp.classList.add(ok ? "correct" : "wrong"); inp.readOnly = true;
+        const ex = box.querySelector(".explain"); ex.hidden = false;
+        ex.innerHTML = `<b>${ok ? "Đúng." : "Đáp án: " + esc(q.accept[0])}</b> ${esc(q.explain||"")}`;
+      } else {
+        ok = answers[i] === q.answer;
+        box.querySelectorAll(".opt").forEach(b => {
+          const o = +b.dataset.o; b.disabled = true;
+          if(o === q.answer) b.classList.add("correct");
+          else if(o === answers[i]) b.classList.add("wrong");
+        });
+        const ex = box.querySelector(".explain"); ex.hidden = false;
+        ex.innerHTML = `<b>${ok ? "Đúng." : "Đáp án " + LETTERS[q.answer] + "."}</b> ${esc(q.explain||"")}`;
+      }
+      if(ok) score++;
+    });
+    const total = set.questions.length, pct = Math.round(score/total*100);
+    const msg = pct >= 80 ? `Rất tốt. Kết quả này tương ứng mức đạt ${LEVELS[state.level].name} ở phần này.`
+      : pct >= 60 ? "Gần đạt. Xem lại giải thích các câu sai, đặc biệt là các lựa chọn gây nhiễu."
+      : "Cần luyện thêm. Đọc kỹ giải thích từng câu rồi làm lại đề này.";
+    record({ skill:state.skill, setId:set.id, title:set.title, score, total });
+    $("#submit").hidden = true; $("#count").textContent = "Đã nộp bài";
+    const res = $("#result");
+    res.innerHTML = `<div class="result"><div class="big">${score}/${total}<small>${pct}%</small></div><p>${msg}</p>
+      <div class="row"><button class="btn" id="retry">Làm lại</button><button class="btn ghost" id="tolist">Chọn đề khác</button></div></div>`;
+    $("#retry").onclick = () => render();
+    $("#tolist").onclick = () => go("list", state.skill);
+    if(isL){ $("#transcript").hidden = false; }
+    res.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"center" });
+  };
+}
+
+/* ---- Trình phát bài nghe (Web Speech) ---- */
+function playerHTML(){
+  return `<div class="player" id="player">
+    <button class="btn" id="play">Phát bài nghe</button>
+    <button class="btn ghost" id="stop" hidden>Dừng</button>
+    <span class="wave" id="wave" hidden aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <label>Tốc độ <select id="rate"><option value="0.85">Chậm</option><option value="1" selected>Chuẩn</option><option value="1.1">Nhanh</option></select></label>
+    <span class="plays" id="plays">Còn 2 lượt nghe</span>
+    <p class="player-note" id="tts-note"></p></div>`;
+}
+let voiceCache = [];
+function loadVoices(){ try{ voiceCache = speechSynthesis.getVoices(); }catch(e){ voiceCache = []; } }
+if(window.speechSynthesis){ loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+function pickVoices(){
+  if(!voiceCache.length) loadVoices();
+  const gb = voiceCache.filter(v => /^en[-_]GB/i.test(v.lang));
+  const pool = gb.length ? gb : voiceCache.filter(v => /^en/i.test(v.lang));
+  const F = pool.find(v => /female|woman|libby|sonia|serena|kate|hazel|susan|martha|fiona|moira|karen|samantha|maisie|mia/i.test(v.name)) || pool[0] || null;
+  const M = pool.find(v => /\bmale\b|ryan|daniel|george|arthur|oliver|thomas|alfie|elliot/i.test(v.name) && !/female/i.test(v.name))
+    || pool.find(v => v !== F) || F;
+  return { F, M, same: F === M };
+}
+function bindPlayer(set, isSubmitted){
+  const note = $("#tts-note"), play = $("#play"), stop = $("#stop"), wave = $("#wave"), playsEl = $("#plays");
+  if(!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined"){
+    play.disabled = true; playsEl.hidden = true;
+    note.textContent = "Trình duyệt này không đọc được âm thanh. Hãy nộp bài để xem bản ghi, hoặc mở trang bằng Chrome, Edge hay Safari.";
+    return;
+  }
+  let plays = 0; const MAX = 2;
+  const setPlaying = on => { stop.hidden = !on; wave.hidden = !on; play.disabled = on || (!isSubmitted() && plays >= MAX); };
+  const updatePlays = () => {
+    if(isSubmitted()) playsEl.textContent = "Nghe lại không giới hạn";
+    else playsEl.textContent = plays >= MAX ? "Đã hết lượt nghe" : `Còn ${MAX-plays} lượt nghe`;
+  };
+  play.onclick = () => {
+    if(!isSubmitted()){ if(plays >= MAX) return; plays++; }
+    updatePlays();
+    play.textContent = "Nghe lại";
+    const v = pickVoices(), rate = +$("#rate").value;
+    speechSynthesis.cancel();
+    const chunks = [];
+    set.script.forEach(l => String(l.text).split(/(?<=[.!?])\s+/).forEach(t => { if(t.trim()) chunks.push({ speaker:l.speaker, text:t }); }));
+    chunks.forEach((c, i) => {
+      const u = new SpeechSynthesisUtterance(c.text);
+      const voice = c.speaker === "M" ? v.M : v.F;
+      if(voice){ u.voice = voice; u.lang = voice.lang; } else u.lang = "en-GB";
+      u.rate = rate;
+      u.pitch = v.same ? (c.speaker === "M" ? 0.75 : 1.2) : 1;
+      if(i === chunks.length-1){ u.onend = () => setPlaying(false); u.onerror = () => setPlaying(false); }
+      speechSynthesis.speak(u);
+    });
+    setPlaying(true);
+    if(!v.F) note.textContent = "Không tìm thấy giọng tiếng Anh trên thiết bị; trình duyệt sẽ dùng giọng mặc định.";
+  };
+  stop.onclick = () => { speechSynthesis.cancel(); setPlaying(false); };
+  $("#submit").addEventListener("click", () => setTimeout(() => { if(isSubmitted()){ updatePlays(); play.disabled = false; } }, 0));
+  updatePlays();
+}
+
+/* ================= WRITING ================= */
+const WRITING_CRITERIA = `<details class="criteria"><summary>Tiêu chí chấm Writing của Cambridge (mỗi tiêu chí 0–5 điểm)</summary><dl>
+  <dt>Content</dt><dd>Trả lời đủ và đúng mọi ý đề yêu cầu; người đọc nắm được đầy đủ thông tin.</dd>
+  <dt>Communicative Achievement</dt><dd>Dùng đúng thể loại và văn phong (email thân mật, bài luận trang trọng…), giữ được sự chú ý của người đọc.</dd>
+  <dt>Organisation</dt><dd>Bố cục rõ ràng, chia đoạn hợp lý, dùng từ nối và phép liên kết đa dạng.</dd>
+  <dt>Language</dt><dd>Từ vựng và ngữ pháp phong phú, chính xác; lỗi không làm cản trở việc hiểu.</dd></dl></details>`;
+function taskHTML(set){
+  let h = `<p>${esc(set.intro)}</p>`;
+  if(set.email) h += `<div class="email">${set.email.map(([line,note]) => `<div class="line">${esc(line)}</div>${note ? `<div class="note">${esc(note)}</div>` : "<div></div>"}`).join("")}</div>`;
+  if(set.points) h += `<ul>${set.points.map(p => `<li>${esc(p)}</li>`).join("")}</ul>`;
+  h += `<p><b>${esc(set.outro)}</b></p>`;
+  return h;
+}
+function taskText(set){
+  return [set.intro, ...(set.email ? set.email.map(([l,n]) => l + (n ? `  [note: ${n}]` : "")) : []), ...(set.points||[]), set.outro].join("\n");
+}
+function barHTML(label, v){
+  const n = Math.max(0, Math.min(5, Math.round(+v || 0)));
+  return `<div class="score"><span>${esc(label)}</span><span class="bar" aria-hidden="true">${[1,2,3,4,5].map(i => `<i class="${i<=n?"on":""}"></i>`).join("")}</span><b>${n}/5</b></div>`;
+}
+function renderWriting(app, set){
+  const draftKey = "cam-draft-" + set.id;
+  app.innerHTML = `
+    <button class="back" id="back">‹ Danh sách đề</button>
+    <div class="ex-head"><div><p class="ex-part">${esc(set.part)}</p><h2>${esc(set.title)}</h2></div>
+      <div class="timer" id="timer">00:00</div></div>
+    <div class="ex-grid single"><div>
+      <div class="task">${taskHTML(set)}</div>
+      <textarea class="essay" id="essay" placeholder="Viết bài bằng tiếng Anh ở đây. Bài nháp được tự động lưu." aria-label="Bài viết"></textarea>
+      <div class="wc"><span id="wc">0 từ</span><span class="target">Yêu cầu: ${set.min}–${set.max} từ</span></div>
+      <div class="actions">
+        <button class="btn" id="grade" data-ai hidden>Chấm bài bằng AI</button>
+        <button class="btn ghost" id="clear">Xoá bài</button>
+        <p class="hint" data-noai>Chấm bài bằng AI chỉ hoạt động khi mở trang trong Claude. Bạn vẫn có thể tự đánh giá theo tiêu chí bên dưới.</p>
+      </div>
+      <div class="fb" id="fb" aria-live="polite"></div>
+      ${WRITING_CRITERIA}
+    </div></div>`;
+  $("#back").onclick = () => go("list", "writing");
+  const ta = $("#essay"), wc = $("#wc");
+  ta.value = store.get(draftKey, "");
+  let started = false;
+  const upd = () => {
+    const n = countWords(ta.value);
+    wc.innerHTML = `<span class="${n>=set.min && n<=set.max+20 ? "ok" : ""}">${n} từ</span>`;
+  };
+  upd();
+  ta.oninput = () => { if(!started){ started = true; startTimer(); } upd(); store.set(draftKey, ta.value); };
+  $("#clear").onclick = () => { if(ta.value && !confirm("Xoá toàn bộ bài viết?")) return; ta.value = ""; store.del(draftKey); upd(); $("#fb").innerHTML = ""; };
+  $("#grade").onclick = async () => {
+    const text = ta.value.trim(), n = countWords(text), fb = $("#fb"), btn = $("#grade");
+    if(n < 10){ fb.innerHTML = `<p class="err">Viết ít nhất vài câu trước khi chấm bài.</p>`; return; }
+    btn.disabled = true;
+    fb.innerHTML = `<p class="thinking"><span class="wave"><i></i><i></i><i></i><i></i></span>Giám khảo AI đang đọc bài, thường mất 20–60 giây…</p>`;
+    const L = LEVELS[state.level];
+    const prompt = `You are an experienced Cambridge English examiner for ${L.exam} (CEFR ${L.cefr}). Assess the candidate's writing with the Cambridge Writing Assessment Scale for this exam: Content, Communicative Achievement, Organisation, Language, each 0-5, judged against ${L.cefr} expectations.
+TASK (${set.part}):
+${taskText(set)}
+Required length: ${set.min}-${set.max} words. Candidate wrote ${n} words.
+CANDIDATE ANSWER:
+"""${text}"""
+Reply with ONLY a JSON object, no markdown:
+{"scores":{"content":0,"communicative":0,"organisation":0,"language":0},"summary_vi":"2-3 câu nhận xét chung bằng tiếng Việt","strengths_vi":["..."],"improvements_vi":["lời khuyên cụ thể bằng tiếng Việt"],"corrections":[{"original":"exact phrase from the answer","corrected":"corrected phrase","note_vi":"giải thích ngắn"}],"model_answer":"a model answer in English for this task at ${L.cefr} level, within the word limit"}
+Give at most 6 corrections, choosing the most important errors. If the answer is off-task, say so and score Content accordingly.`;
+    try{
+      const r = await sample.json(prompt, { modelTier:"default" });
+      const s = r.scores || {};
+      const vals = ["content","communicative","organisation","language"].map(k => Math.max(0, Math.min(5, Math.round(+s[k]||0))));
+      const total = vals.reduce((a,b) => a+b, 0);
+      record({ skill:"writing", setId:set.id, title:set.title, score:total, total:20 });
+      fb.innerHTML = `
+        <div class="fb-card"><h3>Điểm theo tiêu chí</h3><div class="total">${total}/20</div>
+          <div class="scores">${barHTML("Content",vals[0])}${barHTML("Communicative Achievement",vals[1])}${barHTML("Organisation",vals[2])}${barHTML("Language",vals[3])}</div>
+          <p>${esc(r.summary_vi||"")}</p></div>
+        ${(r.strengths_vi||[]).length ? `<div class="fb-card"><h3>Điểm mạnh</h3><ul>${r.strengths_vi.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
+        ${(r.improvements_vi||[]).length ? `<div class="fb-card"><h3>Cần cải thiện</h3><ul>${r.improvements_vi.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
+        ${(r.corrections||[]).length ? `<div class="fb-card"><h3>Sửa lỗi</h3><div class="corr">${r.corrections.map(c => `<div><del>${esc(c.original)}</del> <ins>${esc(c.corrected)}</ins><br><span style="color:var(--muted)">${esc(c.note_vi||"")}</span></div>`).join("")}</div></div>` : ""}
+        ${r.model_answer ? `<details class="fb-card"><summary><b>Xem bài mẫu tham khảo</b></summary><div class="model" style="margin-top:.75rem">${esc(r.model_answer)}</div></details>` : ""}
+        <p class="hint">Điểm do AI ước lượng theo thang Cambridge để tham khảo, không thay thế điểm thi chính thức.</p>`;
+      clearTimer();
+    }catch(e){
+      fb.innerHTML = `<p class="err">${esc(errCopy(e))}</p>`;
+    }finally{ btn.disabled = false; }
+  };
+}
+
+/* ================= SPEAKING ================= */
+function renderSpeaking(app, set){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const canTTS = !!window.speechSynthesis;
+  app.innerHTML = `
+    <button class="back" id="back">‹ Danh sách đề</button>
+    <div class="ex-head"><div><p class="ex-part">${esc(set.part)}</p><h2>${esc(set.title)}</h2><p class="ex-instr">${esc(set.instructions)}</p></div>
+      <div class="timer" id="timer">00:00</div></div>
+    <div class="ex-grid single"><div>
+      <div class="task"><p style="margin:0"><b>Mẹo:</b> ${esc(set.tip)}</p>
+        ${SR ? "" : `<p class="hint" style="margin-top:.6rem">Trình duyệt này không hỗ trợ nhận dạng giọng nói. Hãy gõ câu trả lời, hoặc mở bằng Chrome hay Edge để nói trực tiếp.</p>`}</div>
+      <div class="sqs">${set.questions.map((q,i) => `
+        <div class="sq" id="sq${i}"><p class="sq-q">${i+1}. ${esc(q)}</p>
+          <div class="sq-actions">
+            ${canTTS ? `<button class="btn ghost small listen" data-i="${i}">Nghe câu hỏi</button>` : ""}
+            ${SR ? `<button class="btn small rec" data-i="${i}" aria-pressed="false">Bắt đầu nói</button>` : ""}
+          </div>
+          <textarea data-i="${i}" placeholder="${SR ? "Bấm Bắt đầu nói, lời bạn nói sẽ hiện ở đây. Bạn cũng có thể gõ." : "Gõ câu trả lời của bạn bằng tiếng Anh."}" aria-label="Câu trả lời ${i+1}"></textarea>
+          <div class="sq-fb" hidden></div></div>`).join("")}</div>
+      <div class="actions" style="margin-top:1.25rem">
+        <button class="btn" id="sfb" data-ai hidden>Nhận xét bằng AI</button>
+        <p class="hint" data-noai>Nhận xét bằng AI chỉ hoạt động khi mở trang trong Claude.</p>
+        <span class="hint" id="micnote" aria-live="polite"></span>
+      </div>
+      <div class="fb" id="fb" aria-live="polite"></div>
+      <details class="criteria"><summary>Tiêu chí chấm Speaking của Cambridge</summary><dl>
+        <dt>Grammar and Vocabulary</dt><dd>Dùng cấu trúc và từ vựng phù hợp, chính xác, đa dạng theo cấp độ.</dd>
+        <dt>Discourse Management</dt><dd>Nói trôi chảy, đủ dài, có liên kết ý, đúng trọng tâm.</dd>
+        <dt>Pronunciation</dt><dd>Phát âm rõ, trọng âm và ngữ điệu tự nhiên (AI không đánh giá được qua văn bản, hãy tự nghe lại).</dd>
+        <dt>Interactive Communication</dt><dd>Mở đầu, phản hồi, phát triển hội thoại và dẫn đến kết luận.</dd></dl></details>
+    </div></div>`;
+  $("#back").onclick = () => go("list", "speaking");
+  startTimer();
+
+  $$(".listen").forEach(b => b.onclick = () => {
+    speechSynthesis.cancel();
+    const v = pickVoices();
+    const u = new SpeechSynthesisUtterance(set.questions[+b.dataset.i]);
+    if(v.F){ u.voice = v.F; u.lang = v.F.lang; } else u.lang = "en-GB";
+    u.rate = 0.95; speechSynthesis.speak(u);
+  });
+
+  let active = null;
+  const stopRec = () => {
+    if(recognizer){ try{ recognizer.stop(); }catch(e){} }
+    recognizer = null;
+    if(active){ active.setAttribute("aria-pressed","false"); active.textContent = "Bắt đầu nói"; active = null; }
+  };
+  $$(".rec").forEach(b => b.onclick = () => {
+    if(active === b){ stopRec(); return; }
+    stopRec();
+    const i = +b.dataset.i, ta = $(`textarea[data-i="${i}"]`);
+    const rec = new SR();
+    rec.lang = "en-GB"; rec.continuous = true; rec.interimResults = true;
+    const base = ta.value ? ta.value.trim() + " " : "";
+    let finalText = "";
+    rec.onresult = ev => {
+      let interim = "";
+      for(let k = ev.resultIndex; k < ev.results.length; k++){
+        const r = ev.results[k];
+        if(r.isFinal) finalText += r[0].transcript + " "; else interim += r[0].transcript;
+      }
+      ta.value = base + finalText + interim;
+    };
+    rec.onerror = ev => {
+      $("#micnote").textContent = ev.error === "not-allowed" || ev.error === "service-not-allowed"
+        ? "Micro bị chặn. Cho phép truy cập micro trong trình duyệt, hoặc gõ câu trả lời."
+        : ev.error === "no-speech" ? "Không nghe thấy tiếng nói. Bấm Bắt đầu nói và thử lại." : "Nhận dạng giọng nói bị gián đoạn. Bấm lại để tiếp tục.";
+      stopRec();
+    };
+    rec.onend = () => { if(recognizer === rec) stopRec(); };
+    try{ rec.start(); }catch(e){ $("#micnote").textContent = "Không khởi động được micro. Hãy gõ câu trả lời."; return; }
+    recognizer = rec; active = b;
+    b.setAttribute("aria-pressed","true"); b.textContent = "Dừng";
+    $("#micnote").textContent = "";
+  });
+
+  $("#sfb").onclick = async () => {
+    stopRec();
+    const ans = set.questions.map((q,i) => ({ q, a: $(`textarea[data-i="${i}"]`).value.trim() }));
+    const fb = $("#fb"), btn = $("#sfb");
+    if(ans.every(x => countWords(x.a) < 3)){ fb.innerHTML = `<p class="err">Trả lời ít nhất một câu hỏi trước khi nhận xét.</p>`; return; }
+    btn.disabled = true;
+    fb.innerHTML = `<p class="thinking"><span class="wave"><i></i><i></i><i></i><i></i></span>Giám khảo AI đang nghe lại câu trả lời của bạn…</p>`;
+    const L = LEVELS[state.level];
+    const prompt = `You are a Cambridge English Speaking examiner for ${L.exam} (CEFR ${L.cefr}). The candidate answered ${set.part}. Their answers were captured by speech recognition, so ignore punctuation and small transcription errors, and do not judge pronunciation.
+Task context: ${set.instructions}
+${ans.map((x,i) => `Q${i+1}: ${x.q}\nA${i+1}: ${x.a || "(no answer)"}`).join("\n")}
+Score on the Cambridge speaking scale for this level, each 0-5: grammar_vocabulary, discourse_management, interactive_communication (judge how well answers respond to and develop the questions).
+Reply with ONLY a JSON object, no markdown:
+{"scores":{"grammar_vocabulary":0,"discourse_management":0,"interactive_communication":0},"summary_vi":"2-3 câu nhận xét chung bằng tiếng Việt","per_question":[{"feedback_vi":"nhận xét ngắn cho câu này","better_answer":"a natural improved answer in English at ${L.cefr} level, 2-4 sentences"}],"tips_vi":["mẹo cụ thể"]}
+per_question must have exactly ${ans.length} items in order.`;
+    try{
+      const r = await sample.json(prompt, { modelTier:"default" });
+      const s = r.scores || {};
+      const vals = ["grammar_vocabulary","discourse_management","interactive_communication"].map(k => Math.max(0, Math.min(5, Math.round(+s[k]||0))));
+      const total = vals.reduce((a,b) => a+b, 0);
+      record({ skill:"speaking", setId:set.id, title:set.title, score:total, total:15 });
+      (r.per_question || []).forEach((p,i) => {
+        const box = $(`#sq${i} .sq-fb`); if(!box || !p) return;
+        box.hidden = false;
+        box.innerHTML = `<p>${esc(p.feedback_vi||"")}</p>${p.better_answer ? `<p><b>Gợi ý câu trả lời:</b> ${esc(p.better_answer)}</p>` : ""}`;
+      });
+      fb.innerHTML = `<div class="fb-card"><h3>Điểm theo tiêu chí</h3><div class="total">${total}/15</div>
+        <div class="scores">${barHTML("Grammar & Vocabulary",vals[0])}${barHTML("Discourse Management",vals[1])}${barHTML("Interactive Communication",vals[2])}</div>
+        <p>${esc(r.summary_vi||"")}</p></div>
+        ${(r.tips_vi||[]).length ? `<div class="fb-card"><h3>Mẹo luyện nói</h3><ul>${r.tips_vi.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
+        <p class="hint">Nhận xét cho từng câu nằm ngay dưới câu trả lời. Phát âm không được chấm vì AI chỉ nhận văn bản.</p>`;
+      clearTimer();
+    }catch(e){
+      fb.innerHTML = `<p class="err">${esc(errCopy(e))}</p>`;
+    }finally{ btn.disabled = false; }
+  };
+}
+
+render();
+</script>
+</body>
+</html>
